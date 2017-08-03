@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+<div style="width:auto;text-align:right;margin-top:10px;margin-left:1%;margin-right:1%;">
+  <button class="btn btn-success" onclick="javascript:window.location.href='/admin/addwlorgy?prentid=${prentid!}';">添加物料或工艺</button>
+  </div>
+
+
+
+
+  	<div class="widget-box" style="margin-left:1%;width:auto;margin-right:1%;">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>${page.title!}</h5>
+          </div>
+          <div class="widget-content nopadding" style="width:100%;height:auto;">
+          <div class="widget-content">
+            <div class="todo">
+              <ul>
+            <#list contentPage.getList() as x>
+            <li class="clearfix">
+            <div style="text-align:left;">
+				<a href="/admin/editwlorgy?id=${x.id!}&prentid=${prentid!}">
+	              ${x.name!}&nbsp;&nbsp;&nbsp;&nbsp;
+	            </a>
+	            <a class="tip" href="/admin/editwlorgy?id=${x.id!}" title="修改/编辑">
+                	<i class="icon-pencil"></i>
+                	<a class="tip" href="javascript:del(${x.id!});" title="删除"><i class="icon-remove"></i></a> 
+	            </a>
+            </div>
+                  <div class="pull-right">
+                  	
+                  	
+                  	
+                  </div>
+                </li>
+            </#list>
+              </ul>
+            </div>
+          </div>
+          </div>
+        </div>
+
+              <script>
+					function del(id){
+						if(window.confirm('你确定要删除吗？')){
+	                 		$.post('/admin/deletewlorgy', { id: id }, 
+							function (data) { 
+								if(data=="ok"){
+									alert("删除成功!");
+									location.reload();
+								}
+							},"text");
+	                 		return true;
+	              		}else{
+	                 		return false;
+	             		}
+					}
+				
+				</script>    
+
+    <div style="width:700px;text-align:center;margin-top:10px;margin-left:1%;">
+    	<#include "/common/_paginate.html" />
+			<@paginate currentPage=contentPage.pageNumber totalPage=contentPage.totalPage actionUrl="/admin/wlorgy/" urlParas="?id=${id!}"/>
+	</div>
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

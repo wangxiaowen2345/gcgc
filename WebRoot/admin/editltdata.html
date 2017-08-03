@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+<script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/admin/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>编辑量体数据</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="savaeditltdata" method="post" class="form-horizontal" id="form">
+            <input type="hidden" value="${id!}" name="id">
+            <#assign  num=0/>
+            <#list ltdata as x>
+            <div class="control-group">
+              <label class="control-label">${x.key!} :</label>
+              <div class="controls">
+              	<input type="hidden" name="key_${num!}" value="${x.key!}">
+                <input type="text" class="span6" name="value_${num!}" id="value_${num!}" value="${x.value!}">
+              </div>
+            </div>
+            <#assign  num=num+1/>
+			</#list>
+			<#assign  num1=29/>
+			<#list persondata as x>
+
+            <div class="control-group">
+              <label class="control-label">${x.data!}:</label>
+              <div class="controls">
+              
+                <select class="span6"  id="pk_${x_index!}" onchange="changedata('value_${num1!}',this);">
+                  <#list x.list as y>
+                    <option>${y!}</option>
+                  </#list>
+                </select>
+              </div>
+            </div>
+            <#assign  num1=num1+1/>
+            </#list>
+            <#assign  num1=29/>
+            <#list persondatalist as x>
+            <div class="control-group" style="display:none">
+            	<input type="text" name="key_${num1!}" value="${x.key!}">
+                <input type="text" class="span6" name="value_${num1!}"  id="p${x_index!}" value="${x.value!}">
+            </div>
+            <#assign  num1=num1+1/>
+            </#list>
+            
+			<div class="control-group">
+              <label class="control-label">图片:</label>
+              <div class="controls" style="display: none">
+                <input type="file" id="file" multiple="multiple" name="file" onchange="uploadImage(this);">
+                <input type="text" class="span6" name="pic1" id="img0" value=${pic1!}>
+                <input type="text" class="span6" name="pic2" id="img1" value=${pic2!}>
+                <input type="text" class="span6" name="pic3" id="img2" value=${pic3!}>
+              </div>
+              <div id="lightbox_2">
+              <img src="${pic1!'/img/add2.png'}" style="width:120px;height:120px;margin-left:40px" id="fimg0" onclick="upload(0)" class="lightbox-pic" data-role="lightbox" data-source="" data-group="group-2" data-id="pic_2_1" data-caption="pic_2_1">
+              
+              <img src="${pic2!'/img/add2.png'}" style="width:120px;height:120px;margin-left:40px" id="fimg1" onclick="upload(1)" class="lightbox-pic" data-role="lightbox" data-source="" data-group="group-2" data-id="pic_2_2" data-caption="pic_2_2">
+              
+              <img src="${pic3!'/img/add2.png'}" style="width:120px;height:120px;margin-left:40px" id="fimg2" onclick="upload(2)" class="lightbox-pic" data-role="lightbox" data-source="" data-group="group-2" data-id="pic_2_3" data-caption="pic_2_3">
+            
+              <font color="red" id="msg"></font>
+                </div>
+              <font color="red" id="msg"></font>
+            </div>
+			<input type="hidden" name="num1" value="${num1!}">
+            </form>
+			
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="sub();">保存</button>
+            </div>
+
+        </div>
+      </div>
+      <script>
+      var index;
+		var num = ${num!};
+		var power = '${admin_user.power!}';
+		
+         
+          function sub(){
+
+        	for(var i = 0;i<num;i++){
+	         	if(document.getElementById("value_"+i).value=="")
+	         	{
+		         	alert("请完整填写表单！");
+		         	return;
+		         	}
+         	
+         	
+         	}
+         	if(power=='qjd'){
+         	alert("没有权限！");
+         		return;
+         	}
+                document.getElementById("form").submit();
+
+          }
+          
+        function changedata(id,obj){
+            var w = obj;
+        	var name = id;
+        	document.getElementsByName(name)[0].value=obj.value;
+        	
+        }
+        load();
+        
+		function load(){
+				for(var a=0;a<4;a++){
+					var text = document.getElementById("p"+a).value;
+					var pk = document.getElementById("pk_"+a);
+					for (var i = 0; i < pk.options.length; i++) { 
+							if (pk.options[i].text == text) { 
+							pk.options[i].selected = true; 
+							isExit = true; 
+							break; 
+							};
+						} ;
+				};
+        	}
+        	
+		function upload(id){
+		 	 index= id;
+			$('#file').click();
+		}
+		function uploadImage(objForm){
+      //判断是否有选择上传文件
+              var imgPath = $("#file").val();
+              if (imgPath == "") {
+                  alert("请选择上传图片！");
+                  return;
+              }
+              //判断上传文件的后缀名
+              var strExtension = imgPath.substr(imgPath.lastIndexOf('.') + 1);
+              if (strExtension != 'jpg' && strExtension != 'gif'
+              && strExtension != 'png' && strExtension != 'bmp') {
+                  alert("请选择图片文件");
+                  return;
+              }
+
+			  var formData = new FormData();
+			  
+			  var imglength = $('#file')[0].files.length;
+			  
+			  for(var i = 0;i<$('#file')[0].files.length;i++){
+			  	formData.append('file'+i, $('#file')[0].files[i]);
+			  	
+			  	console.log($('#file')[0].files[i]);
+			  }
+              console.log(formData);
+              
+              $("#msg").html("图片正在上传，请稍候……");
+
+              $.ajax({
+                url: "/admin/imageUpload",
+                type: 'POST',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false,
+            }).done(function(res) {
+            for(var i = 0;i<imglength;i++){
+              var src = 'src'+i;
+              var code = 'code'+i;
+              var srca=res[src];
+              var codea=res[code];
+              if(res[code]=="200"){
+                  $("#msg").html("图片上传成功");
+                  
+                  document.getElementById("fimg"+index).src=res[src];
+                  document.getElementById("img"+index).value=res[src];
+                  document.getElementById("fimg"+index).style.display="inline-block";
+
+              }
+              }
+            }).fail(function(res) {
+            	$("#msg").html("");
+                alert("上传失败，请检查网络后重试");
+            },"json");
+      	
+      };
+      </script>
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

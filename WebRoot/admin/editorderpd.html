@@ -1,0 +1,239 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>订单指派</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="doeditmoddle" method="post" class="form-horizontal" id="form">
+          <input name="dao.id" value="${r.id!}" type="hidden">
+          <div class="control-group">
+            <label class="control-label">预约单号 :</label>
+            <div class="controls">
+
+
+              <p class="span6" style="margin-top: 5px;margin-left: 0px;">
+                Y${r.id!}
+              </p>
+
+            </div>
+          </div>
+          	<div class="control-group">
+              <label class="control-label">指派状态 :</label>
+              <div class="controls">
+
+
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;"><#if r.state==1>待指派订单<#elseif r.state=3>已指派订单</#if></p>
+
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">客户姓名 :</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.name!}</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">电话 :</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.tel!}</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">地址:</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.address!}</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">预约类型:</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.type!}</p>
+
+              </div>
+            </div>
+						<#if r.type=="上门量体">
+            <div class="control-group">
+              <label class="control-label">量体师性别:</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.wantsex!}</p>
+
+              </div>
+            </div>
+						</#if>
+						<#if r.type=="到店量体">
+            <div class="control-group">
+              <label class="control-label">预约门店:</label>
+              <div class="controls">
+            	<#list shoplist as x>
+            		<#if r.shop==x.id><p class="span6" style="margin-top: 5px;margin-left: 0px;">${x.name!}</p></#if>
+            	</#list>
+              </div>
+            </div>
+            </#if>
+            <div class="control-group">
+              <label class="control-label">预约时间:</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.emtime!}</p>
+
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">最后更新时间:</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.time!}</p>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">备注:</label>
+              <div class="controls">
+                <#if r.state!=3>
+                <textarea class="span6" name="dao.remark" id="remark" readOnly="true">${r.remark!}</textarea>
+                <!--button type="button" class="btn btn-primary" onclick="edit('remark','remark',this);">修改</button-->
+                <#else>
+                <#list pdlist as x>
+                  <#if r.pd==x.id><p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.remark!}</p></#if>
+                </#list>
+                </#if>
+              </div>
+            </div>
+
+
+            <div class="control-group">
+              <label class="control-label">指派给:</label>
+              <div class="controls">
+
+                <select class="span6" id="pd" <#if r.state==3>style="display:none;"</#if>>
+                	<#list pdlist as x>
+                		<option value="${x.id!}" <#if r.pd==x.id>selected</#if>>${x.name!}</option>
+                	</#list>
+                </select>
+
+                <button type="button" id="btn_pass1" class="btn btn-success" <#if r.state==3>style="display:none;"</#if> onclick="topd();">指派</button>
+                <#if r.state==3>
+                
+                 <p class="span6" id="zpinput" style="margin-top: 5px;margin-left: 0px;"><#list pdlist as x>
+                		<#if r.pd==x.id>${x.name!}</#if>
+                	</#list></p>
+                
+                <button type="button" id="btn_pass2" class="btn btn-success" onclick="repd();" style="<#if power=='false'>display: none;</#if>">重新指派</button>
+                </#if>
+
+              </div>
+            </div>
+
+
+
+
+            <div class="form-actions">
+              <button type="button" id="btn_back" class="btn btn-warning" onclick="window.history.go(-1);">返回</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <script language="javascript">
+      var id = ${r.id!};
+      
+
+
+      var ty = true;
+
+      function repd(){
+        document.getElementById("btn_pass1").style.display="inline";
+        document.getElementById("btn_pass2").style.display="none";
+        document.getElementById("pd").style.display="inline";
+        document.getElementById("zpinput").style.display="none";
+
+      }
+
+      function edit(eid,key,t){
+
+
+      	var ipt = document.getElementById(eid);
+      	if(ipt.readOnly){
+      		ipt.readOnly = false;
+      		t.innerText="提交";
+      	}else{
+      		var value = ipt.value;
+
+      		$.post("editexaminevalue", {key:key, value: value,id:id},
+   				function(data){
+     				if(data.code==200){
+     					alert("修改成功！");
+     					ipt.readOnly = true;
+
+      					t.innerText="修改";
+     				}else{
+     					alert("修改失败，请重试！");
+     				}
+   			},'json');
+      	}
+      }
+
+
+
+      function topd(){
+
+        var pd = document.getElementById("pd");
+      	$.post("doorderpd", {topdid: pd.value,id:id},
+   				function(data){
+     				if(data.code==200){
+     					alert(data.msg);
+     					location.reload();
+     				}else{
+     					alert(data.msg);
+     				}
+   			},'json');
+
+      }
+
+
+
+      </script>
+
+
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+</head>
+<script src="/js/jquery.min.js"></script>
+<script type="text/javascript">  
+     function test(){ 
+  		 var json = {
+	        "tel": $("#tel").val(),
+	        "img": [$("#img1").val(),$("#img2").val(),$("#img3").val(),$("#img4").val(),$("#img3").val()],
+	        "data":["",$("#c0").val(),"",$("#c1").val(),"",$("#c2").val(),"",$("#c3").val(),"",$("#c4").val(),"",$("#c5").val()]
+	     };
+		 var data = {request:JSON.stringify(json)};          
+         $.ajax({   
+                type:"POST", //请求方式  
+                url:"/transmission", //请求路径  
+                cache: false,     
+                data:data, //传参  
+                dataType: 'json',   //返回值类型  
+                success:function(msg){
+                alert(msg.message);
+					if(msg.code==200){
+					if(msg.rdata!="null"){
+						var obj = JSON.parse(msg.rdata); //由JSON字符串转换为JSON对象
+						window.location.href="/showdataTransmission?id="+obj.id;
+						}
+					 	else 
+						alert("无历史数据！");
+					}
+					
+                  },
+                error:function(){  
+                    alert("error");  
+                },
+                });  
+      }  
+</script>  
+</head>  
+<body>  
+    <form action="" method="post" >  
+        <input type="text" name="tel" id="tel" value="13012461269"> <br>
+        <input type="text" name="img1" id="img1" value="/img/a1.jpg"> 
+        <input type="text" name="img2" id="img2" value="/img/a2.jpg"> 
+        <input type="text" name="img3" id="img3" value="/img/a3.jpg"> 
+        <input type="text" name="img4" id="img4" value="/img/a4.jpg"> <br>
+        <input type="text" name="c0" id="c0" value="898"> 
+        <input type="text" name="c1" id="c1" value="90"> 
+        <input type="text" name="c2" id="c2" value="9"> 
+        <input type="text" name="c3" id="c3" value="8"> 
+        <input type="text" name="c4" id="c4" value="7"> 
+        <input type="text" name="c5" id="c5" value="7"> 
+        <input type="button" name="b" value="测试" onclick=test()>  
+    </form>  
+      
+</body>  
+</html>

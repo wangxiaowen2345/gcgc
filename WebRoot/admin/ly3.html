@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/colorpicker.css" />
+<link rel="stylesheet" href="/css/datepicker.css" />
+<link rel="stylesheet" href="/css/uniform.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/select2.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+<link rel="stylesheet" href="/css/bootstrap-wysihtml5.css" />
+
+
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;text-align:center;margin:auto;">
+
+
+          <div style="width:500px;height:50px;margin-top:50px;margin-left:20px;">
+            数据保存成功，是否查看立即建立订单?&nbsp;&nbsp;&nbsp;<button style="margin-right:20px;" onclick="location.href='/admin/createmakeorder?userid=${userid!}&from=ly';">是</button><button>否</button>
+          </div>
+
+
+    </div>
+
+
+
+
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

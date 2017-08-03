@@ -1,0 +1,929 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>生产订单详情</h5>
+        </div>
+        <div class="widget-content nopadding">
+            <div  class="form-horizontal" >
+			<form action="updatemarkorder" method="post" class="form-horizontal" id="form">
+              <div class="control-group">
+                <label class="control-label">订单号 :</label>
+                <div class="controls">
+                  <p class="span6" style="margin-top: 5px;margin-left: 0px;">S${r.id!}</p>
+                  <input type="hidden" name="id" value="${r.id!}">
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label">订单状态 :</label>
+                <div class="controls">
+                  <p class="span6" style="margin-top: 5px;margin-left: 0px;">
+                    <#if r.state==-100>开始重做，客户快递或上门返还衣物</#if>
+                    <#if r.state==-101>重做中</#if>
+                    <#if r.state==-102>店铺收到重做完成货物</#if>
+                    <#if r.state==-10>开始返修，客户快递或上门返还衣物</#if>
+                    <#if r.state==-11>返修中</#if>
+                    <#if r.state==-12>店铺收到返修完成货物</#if>
+                    <#if r.state==0>新订单，待审核</#if>
+                    <#if r.state==1>已审核，未付款</#if>
+                    <#if r.state==2>已付款，待生产</#if>
+                    <#if r.state==10>生产中</#if>
+                    <#if r.state==20>生产完毕，等待发往店铺</#if>
+                    <#if r.state==30>正在发送到店铺</#if>
+                    <#if r.state==50>店铺已收到包裹</#if>
+                    <#if r.state==60>店铺已发货至客户或客户收到货物</#if>
+                    <#if r.state==70>维修订单,店铺已发货至客户或客户收到货物</#if>
+                    <#if r.state==100>订单完成</#if>
+                    <#if r.state==-200>退款订单</#if>
+                  </p>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label">承运门店 :</label>
+                <div class="controls">
+<!--                   <p class="span6" style="margin-top: 5px;margin-left: 0px;"> -->
+
+<!--                     <#list sp as x> -->
+<!--                       <#if x.id==r.shop>${x.name!}</#if> -->
+<!--                     </#list> -->
+<!--                   </p> -->
+                    <select class="span3" name="dao.shop" id="shop">
+	                    <#list sp as x>
+	                    <#if x.id==r.shop>
+	                    <option value="${x.id!}" selected="selected">${x.name!}</option>
+	                    <#else>
+	                    <option value="${x.id!}">${x.name!}</option>
+	                    </#if>
+	                    </#list>
+	                    
+                    </select>
+
+                 
+                </div>
+              </div>
+
+            <div class="control-group">
+              <label class="control-label">收件人 :</label>
+              <div class="controls">
+                
+                <input type="text" class="span3" id="name" name="dao.name" value="${r.name!}" >
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">性别 :</label>
+              <div class="controls">
+                <input type="hidden" class="span3" id="sex" name="dao.sex" value="${r.sex!}" >
+                <select class="span3"   onchange="chansex(this.value)">
+	                    
+	                    <#if r.sex=='1'>
+	                    <option value="1" selected="selected">男</option>
+	                    <option value="0">女</option>
+	                    <#else>
+	                    <option value="1">男</option>
+	                    <option value="0" selected="selected">女</option>
+	                    </#if>
+	                    
+                    </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">身高 :</label>
+              <div class="controls">
+                <input type="text" class="span3" id="cm" name="dao.cm" value="${r.cm!}" >
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">体重 :</label>
+              <div class="controls">
+                <input type="text" class="span3" id="kg" name="dao.kg" value="${r.kg!}" >
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">年龄 :</label>
+              <div class="controls">
+                
+                <input type="text" class="span3" id="name" name="dao.age" value="${r.age!}" >
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">收件人电话 :</label>
+              <div class="controls">
+                <input type="text" class="span3" id="tel" name="dao.tel" value="${r.tel!}" >
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">收件人地址 :</label>
+              <div class="controls">
+              <input type="text" class="span3" id="address" name="dao.address" value="${r.address!}" >
+              </div>
+            </div>
+            <#if ltdouser??>
+            <div class="control-group">
+              <label class="control-label">量体师姓名 :</label>
+              <div class="controls">
+                <select class="span3" name="dao.ltdouser" id="ltdouser" onchange="changetel(this)">
+	                    <#list ltdouserall as x>
+	                    <#if x.id==r.ltdouser>
+	                    <option value="${x.id!}" selected="selected">${x.name!}</option>
+	                    <#else>
+	                    <option value="${x.id!}">${x.name!}</option>
+	                    </#if>
+	                    </#list>
+	                    
+                    </select>
+              </div>
+            </div>
+            
+            
+            <div class="control-group">
+              <label class="control-label">量体师电话 :</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;" id ="ltdousertel">${ltdouser.tel!}</p>
+              </div>
+            </div>
+			</#if>
+            <div class="control-group">
+              <label class="control-label">订单数据 :</label>
+              <div class="controls" >
+
+
+            <TABLE borderColor=#cccccc cellSpacing=8 cellPadding=4 width=300 align=center border=1 style="margin-left:0px;;width:90%">
+			<TBODY>
+			<TR>
+			<TD>
+			
+			  <P style="color:red;">以下为量体数据：</P>
+			  <#list ltdata as x>
+			  <P>${x.name!}：${x.value!} </P>
+			  </#list>
+			  
+			  <script>
+			  	var datax = new Array();
+			  </script>
+			  <#list data as x>
+			  
+			  <script type="text/javascript">
+			  	datax[${x_index!}] = new Array();
+			  	datax[${x_index!}][0]='${x.name!}';
+			  	datax[${x_index!}][1]='${x.value!}';
+			  </script>
+			  </#list>
+  			<div class="control-group">
+              <P style="color:red;">以下为定制数据：</P>
+            </div>
+ 			 <div class="control-group">
+              <label class="control-label">商品名称 :</label>
+              <div class="controls">
+              <input type="hidden" class="span3"  name="yxdataname" value="${yxdataname!}" >
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${yxdataname!}</p>
+              </div>
+            </div>
+            <script>
+            	var ccc = new Array();
+            </script>
+            <#assign num=0>
+            <#list mlist as x>
+            <div class="control-group">
+              <label class="control-label">${x.name!} :</label>
+              <div class="controls">
+								<script>
+									ccc[${x_index!}] = new Array();
+								</script>
+                
+                <input type="hidden" id="key_${x_index!}" value="${x.id!}" name="key_${x_index!}">
+                <input type="hidden" id="name_${x_index!}" value="${x.name!}" name="name_${x_index!}">
+                <input type="hidden" id="value_${x_index!}" value="0" name="value_${x_index!}">
+
+								
+                
+                <select type="text" class="span6" id ="select_${x_index!}" onchange="ck1(${x_index!},this.value);" id="select_${x_index!}">
+                	
+                	<#list x.list as y>
+						 <option value="${y.id!}" >${y.name!}</option>
+               		<script>
+                		ccc[${x_index!}][${y.id!}] = new Array();
+                		ccc[${x_index!}][${y.id!}][0] = '${y.name!}';
+                		ccc[${x_index!}][${y.id!}][1] = '${y.prent!}';
+                		ccc[${x_index!}][${y.id!}][2] = '${y.price!}';
+                	</script>
+                	</#list>
+                </select>
+                
+             <script type="text/javascript">
+			  	for(var i=0;i<datax.length;i++){
+			  	
+			  		if('${x.name!}'==datax[i][0]){
+			  			
+			  			var seopti=document.getElementById("select_${x_index!}");
+			  			for (var j = 0; j < seopti.options.length; j++) { 
+							if (seopti.options[j].text == datax[i][1]) { 
+							seopti.options[j].selected = true; 
+							isExit = true; 
+							break; 
+							};
+						} ;
+			  		}
+			  	}
+			  	var cckk = $("#select_${x_index!} option:selected").val();
+		  		document.getElementById("value_"+${x_index!}).value = cckk;
+			  </script>
+			              </div>
+            </div>
+               <#assign  num=x_index+1>
+              </#list>
+            <input type="hidden" name="num" value="${num!}">
+            
+      <script>     
+      
+             function ck1(a,b){
+//            	alert(a);
+//            	alert(b);
+//            	alert(ccc[a][b*1][0]);
+//            	alert(ccc[a][b*1][1]);
+//            	alert(ccc[a][b*1][2]);
+	              document.getElementById("value_"+a).value = b;
+	              
+	              var price = 0;
+	              
+	              for(var i=0;i<${num!};i++){
+	              	var c = document.getElementById("select_"+i).value;
+	              	price += ccc[i][c*1][2]*1;
+	              }
+	              document.getElementById("price").value = price;
+	              
+	             // if(isprice==ccc[a][b*1][1])
+	             //   document.getElementById("price").value = ccc[a][b*1][2];
+              }
+</script>
+
+            <#assign onum=0>
+            <#list orderpersondata as x>
+
+            <div class="control-group">
+              <label class="control-label">${x.data!}:</label>
+              <div class="controls">
+                <select class="span6" name="opk_${x_index!}" id="opk_${x_index!}">
+                  <#list x.list as y>
+                    <option>${y!}</option>
+                  </#list>
+                </select>
+                <script type="text/javascript">
+			  	for(var i=0;i<datax.length;i++){
+			  	
+			  		if('${x.data!}'==datax[i][0]){
+			  			
+			  			var seopti=document.getElementById("opk_${x_index!}");
+			  			for (var j = 0; j < seopti.options.length; j++) { 
+							if (seopti.options[j].text == datax[i][1]) { 
+							seopti.options[j].selected = true; 
+							isExit = true; 
+							break; 
+							};
+						} ;
+			  		}
+			  	}
+			  </script>
+              </div>
+            </div>
+            <#assign  onum=x_index+1>
+
+            </#list>
+
+            <input type="hidden" name="orderpersondatanum" value="${onum!}">
+              
+              
+              
+
+  <P><font color="red">订单备注：</font>
+  <button class="btn btn-info" style="margin-right:10px;" onclick="addonclick()">添加备注</button></p>
+  <p>${r.remark!}</P>
+  <div id="returnremake" style="display:none">
+	  <textarea rows="2" cols="2" id="returninfo"></textarea>
+	  <span id="onclickurl" style="display:none"></span>
+	  <button class="btn btn-info" style="margin-right:10px;" id="subdo" onclick="subdoonclick()">确认</button>
+  </div>
+</TD></TR></TBODY></TABLE>
+              <br/>
+              <a href="/admin/showmake?id=${r.id!}" target="_self">查看生产工单</a>
+              <br/>
+              </div>
+            </div>
+
+ 			<#if admin_user.power=="qjd">
+            <div class="control-group">
+              <label class="control-label">订单价格 :</label>
+              <div class="controls">
+              
+              <input type="text" class="span6" value="${r.price!}" name="dao.price" id="price" >
+              <p>
+              	<input type="checkbox" id="checkboxprice" onchange="ckprice()"><label style="display: inline-block;line-height: 50px ">&nbsp;&nbsp;是否审核价格</label>
+              </p>
+              </div>
+            </div>
+              <#else>
+               <div class="control-group">
+              <label class="control-label">订单价格 :</label>
+              <div class="controls">
+              <input type="text" class="span6" value="${r.price!}" name="dao.price" id="price" readonly="readonly">
+              <p>
+              	<input type="checkbox" id="checkboxprice" onchange="ckprice()"><label style="display: inline-block;line-height: 50px ">&nbsp;&nbsp;是否审核价格</label>
+              </p>
+              </div>
+            </div>
+             </#if>
+             
+            <#if r.state gt 1>
+            <#if admin_user.power=="gl">
+            <div class="control-group">
+              <label class="control-label">生产工厂 :</label>
+              <div class="controls">
+                <#if r.state==2>
+                <select type="text" class="span6" id="fc">
+                
+                  <#list fc as x>
+                  <option value="${x.id!}">${x.name!}</option>
+                  </#list>
+                
+                </select>
+                <#else>
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">
+                  <#list fc1 as x>
+						${x.name!}
+					</#list>
+                </p>
+                </#if>
+              </div>
+            </div>
+            </#if>
+            </#if>
+
+            <#if r.state gt 10>
+
+
+            <div class="control-group">
+              <label class="control-label">快递单号或取货方式 :</label>
+              <div class="controls">
+                <#if r.state==20>
+                <input type="text" class="span6" id="kddh" placeholder="请输入承运快递和快递单号或取货方式">
+                <#else>
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${r.kddh!}</p>
+                </#if>
+              </div>
+            </div>
+            </#if>
+
+
+
+            <div class="form-actions">
+              <button type="button" id="btn_back" class="btn btn-warning" onclick="window.history.go(-1);">返回</button>
+              <#if r.state==0><button type="button" id="btn_back" class="btn btn-success" onclick="passmakeorderexamine();">通过审核</button></#if>
+              <#if r.state==0><button type="button" id="btn_back" class="btn btn-warning" onclick="orderinvalid();">订单无效</button></#if>
+              <#if r.state==1>
+              <button type="button" id="btn_back" class="btn btn-success" onclick="pay();">线下收款</button>
+              <button type="button" id="btn_back" class="btn btn-success" onclick="sub();">更新订单</button>
+              </#if>
+              <#if r.state==2>
+              <button type="button" id="btn_back" class="btn btn-success" onclick="makeing();">安排生产</button>
+              <button type="button" id="btn_back" class="btn btn-success" onclick="sub();">更新订单</button>
+              </#if>
+              <#if r.state==10><button type="button" id="btn_back" class="btn btn-success" onclick="makeed();">生产完毕</button></#if>
+              <#if r.state==20><button type="button" id="btn_back" class="btn btn-success" onclick="shipped();">发货至店铺</button></#if>
+              <#if r.state==30><button type="button" id="btn_back" class="btn btn-success" onclick="delivered();">店铺收到货物</button></#if>
+              <#if r.state==50><button type="button" id="btn_back" class="btn btn-success" onclick="lastdelivered();">客户收到货物</button></#if>
+              <#if r.state==70 || r.state==80 ||r.state==60><button type="button" id="btn_back" class="btn btn-success" onclick="repair();">返修</button></#if>
+
+              <#if r.state==70 || r.state==80 ||r.state==60><button type="button" id="btn_back" class="btn btn-success" onclick="agenrepair();">重做</button></#if>
+
+
+              <#if r.state==-10><button type="button" id="btn_back" class="btn btn-success" onclick="repairshopdelivered();">门店收到衣物</button></#if>
+              <#if r.state==-11><button type="button" id="btn_back" class="btn btn-success" onclick="repaired();">收到返修完成衣物</button></#if>
+              <#if r.state==-12><button type="button" id="btn_back" class="btn btn-success" onclick="repairdelivered();">客户收到货物</button></#if>
+
+              <#if r.state==-100><button type="button" id="btn_back" class="btn btn-success" onclick="agenrepairshopdelivered();">门店收到衣物</button></#if>
+              <#if r.state==-101><button type="button" id="btn_back" class="btn btn-success" onclick="agenrepaired();">收到重做完成衣物</button></#if>
+              <#if r.state==-102><button type="button" id="btn_back" class="btn btn-success" onclick="agenrepairdelivered();">客户收到货物</button></#if>
+
+              <#if r.state gt 59><button type="button" id="btn_back" class="btn btn-success" onclick="m_ordersend();">完成订单</button></#if>
+              <#if r.state==70 || r.state==80 ||r.state==60><button type="button" id="btn_back" class="btn btn-success" onclick="returngoods();">退货</button></#if>
+
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+		<script>     
+		      
+		   function ckprice(){
+		   	$.post("editexamineneworder", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+          },'json');
+		    }
+		    
+		</script>
+
+      <script language="javascript">
+		// 对Date的扩展，将 Date 转化为指定格式的String
+		// 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
+		// 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 
+		// 例子： 
+		// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
+		// (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
+		Date.prototype.Format = function (fmt) { //author: meizz 
+		    var o = {
+		        "M+": this.getMonth() + 1, //月份 
+		        "d+": this.getDate(), //日 
+		        "h+": this.getHours(), //小时 
+		        "m+": this.getMinutes(), //分 
+		        "s+": this.getSeconds(), //秒 
+		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		        "S": this.getMilliseconds() //毫秒 
+		    };
+		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		    for (var k in o)
+		    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		    return fmt;
+		}
+	
+      function returngoods(){
+        if(window.confirm('请与客户沟通，告知客户邮寄信息，并记录客户银行账户信息的账号、开户行、户名，且确认退款，是否继续退货？')){
+          $.post("returngoods", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+      function m_ordersend(){
+        if(window.confirm('请确认是否完成订单，不可回退？')){
+          $.post("m_ordersend", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+      
+      function changetel(obj){
+          var ltdouserid;
+          var sel=obj;
+		    for(i=0;i<sel.length;i++){
+		        if(sel[i].selected==true){
+		            ltdouserid = sel[i].value;//关键是通过option对象的innerText属性获取到选项文本
+		        }
+		    }
+        
+          $.ajax({            
+                    type:"post",  
+                    url:"/admin/findtel",  
+                    data:{
+                        id:ltdouserid,
+                    },
+                    success:function(data){
+                        if(data.code==200){
+                        	var x=document.getElementById("ltdousertel");
+                        	x.innerHTML=data.tel;
+                        }
+                    }
+                });
+         
+      }
+
+      function repair(){
+        if(window.confirm('请确认是否返修？')){
+        	if(window.confirm('请填写理由？')){
+        		$("#returnremake").show();
+        		document.getElementById('onclickurl').innerText= "repair";
+        		console.log($("#onclickurl"));
+        		return true;
+	         }
+	         else 
+	         return false;
+	         }
+        else
+          return false;
+          location.reload();
+      }
+      
+      
+      function addonclick(){
+   		$("#returnremake").show();
+   		document.getElementById('onclickurl').innerText= "addonclick";
+   		console.log($("#onclickurl"));
+      }
+
+	function subdoonclick(){
+		console.log($("#returninfo").val());
+		if($("#returninfo").val()==""||$("#returninfo").val()==undefined||$("#returninfo").val()==null){
+			alert("请输入理由！");
+		}
+		else{
+			var nowdate = new Date().Format("yyyy-MM-dd hh:mm:ss");
+			var url = document.getElementById('onclickurl').innerText;
+			console.log(url);
+			var remark ="${r.remark!}";
+			var info = remark +nowdate+"  "+"${admin_user.name!}:"+"  "+$("#returninfo").val().replace(/\r|\n/ig,"。")+"</br/>";
+			$.post(url, {id:'${r.id!}',remark:info},
+	           function(data){
+	             alert(data.msg);
+	             if(data.code==200){
+	               location.reload();
+	             }
+	         },'json');
+         }
+         location.reload();
+	}
+
+      function agenrepair(){
+        if(window.confirm('请确认是否重做？')){
+        	if(window.confirm('请填写理由？')){
+        		$("#returnremake").show();
+        		document.getElementById('onclickurl').innerText= "agenrepair";
+        		console.log($("#onclickurl"));
+        		return true;
+	         }
+	         else 
+	         return false;
+        }else{
+          return false;
+        }
+        location.reload();
+      }
+
+
+
+            function repaired(){
+              if(window.confirm('请确认是否收到返修衣服？')){
+                $.post("repaired", {id:'${r.id!}'},
+                  function(data){
+                    alert(data.msg);
+                    if(data.code==200){
+                      location.reload();
+                    }
+                },'json');
+                return true;
+              }else{
+                return false;
+              }
+            }
+            function agenrepaired(){
+              if(window.confirm('请确认是否收到重做衣服？')){
+                $.post("agenrepaired", {id:'${r.id!}'},
+                  function(data){
+                    alert(data.msg);
+                    if(data.code==200){
+                      location.reload();
+                    }
+                },'json');
+                return true;
+              }else{
+                return false;
+              }
+            }
+
+      function repairshopdelivered(){
+        if(window.confirm('请确认店铺是否收到客户返修货物？')){
+          $.post("repairshopdelivered", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+      function agenrepairshopdelivered(){
+        if(window.confirm('请确认店铺是否收到客户重做货物？')){
+          $.post("agenrepairshopdelivered", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      function lastdelivered(){
+        if(window.confirm('请确认店铺是否已发货至客户或客户收到货物？')){
+          $.post("lastdelivered", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+
+      function repairdelivered(){
+        if(window.confirm('请确认店铺是否已发货至客户或客户收到货物？')){
+          $.post("repairdelivered", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+        
+
+
+	function agenrepairdelivered(){
+        if(window.confirm('请确认店铺是否已发货至客户或客户收到货物？')){
+        	$.post("agenrepairdelivered", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+
+
+
+      function pay(){
+        if(window.confirm('请确定是否收到款项${r.price!}元？')){
+          $.post("orderpay", {id:'${r.id!}',payment:'offline'},
+     				function(data){
+              alert(data.msg);
+       				if(data.code==200){
+       					location.reload();
+       				}
+     			},'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+
+      function passmakeorderexamine(){
+        var price =  document.getElementById("price").value;
+        if(window.confirm('请确定是否通过预审，价格为'+price+'元？')){
+          $.post("passmakeorderexamine", {id:'${r.id!}',price:price},
+     				function(data){
+              alert(data.msg);
+       				if(data.code==200){
+       					location.reload();
+       				}
+     			},'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      function makeing(){
+        var fc =  document.getElementById("fc").value;
+        if(window.confirm('请确认是否已联系生产工厂生产？')){
+          $.post("makeing", {id:'${r.id!}',fc:fc},
+     				function(data){
+              alert(data.msg);
+       				if(data.code==200){
+       					location.reload();
+       				}
+     			},'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      function makeed(){
+        if(window.confirm('请确认是否已联系生产工厂确认已生产完毕？')){
+          $.post("makeed", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+
+      function shipped(){
+        if(window.confirm('请确认是否已联系生产工厂已发货？')){
+          $.post("shipped", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      function shipped(){
+        var kddh = document.getElementById("kddh").value;
+        if(window.confirm('请确认是否已联系生产工厂已发货？')){
+          $.post("shipped", {id:'${r.id!}',kddh:kddh},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      function delivered(){
+        if(window.confirm('请确认是否收到货物？')){
+          $.post("delivered", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+      
+      
+     function orderinvalid(){
+        if(window.confirm('请确认是否判定订单无效，订单状态无法回退，是否继续？')){
+          $.post("orderinvalid", {id:'${r.id!}'},
+            function(data){
+              alert(data.msg);
+              if(data.code==200){
+                location.reload();
+              }
+          },'json');
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+
+
+      var id = ${r.id!};
+
+
+      var ty = true;
+
+      function edit(eid,key,t){
+
+
+      	var ipt = document.getElementById(eid);
+      	if(ipt.readOnly){
+      		ipt.readOnly = false;
+      		t.innerText="提交";
+      	}else{
+      		var value = ipt.value;
+
+      		$.post("editexaminevalue", {key:key, value: value,id:id},
+   				function(data){
+     				if(data.code==200){
+     					alert("修改成功！");
+     					ipt.readOnly = true;
+
+      					t.innerText="修改";
+     				}else{
+     					alert("修改失败，请重试！");
+     				}
+   			},'json');
+      	}
+      }
+
+
+
+      function topd(){
+
+        var pd = document.getElementById("pd");
+      	$.post("doorderpd", {topdid: pd.value,id:id},
+   				function(data){
+     				if(data.code==200){
+     					alert("派单成功！");
+     					location.reload();
+     				}else{
+     					alert("派单失败");
+     				}
+   			},'json');
+
+      }
+
+
+        function chansex(va){
+             document.getElementById("sex").value = va;
+              }
+              var num = ${num!};
+              function sub(){
+//               	var nowdate = new Date().Format("yyyy-MM-dd hh:mm:ss");
+//               	var p = document.getElementById("price").value;
+//               	$("#remark").val(nowdate+"  "+"${admin_user.name!}:"+"  "+$("#remark").val().replace(/\r|\n/ig,"。")+"</br/>");
+              	
+//            	var reg = new RegExp("^[0-9]*$");
+//            	var reg1 = new RegExp("/^\d+(\.\d+)?$/");
+//     	
+//						    if(!reg.test(p) || !reg1.test(p)){
+//						        alert("请输入数字!");
+//						        return;
+//						    }
+				
+                for(var i = 0;i<num;i++){
+                  var key = document.getElementById("key_"+i).value;
+                  var name = document.getElementById("name_"+i).value;
+                  var value = document.getElementById("value_"+i).value;
+                  if(value=="0"){
+                    alert("请选择"+name);
+                    return;
+                  }
+                }
+
+                //alert("a");
+
+                document.getElementById("form").submit();
+              }
+
+      </script>
+
+
+  </div>
+</div>
+<script>
+      		${js!}
+      	</script>
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/admin/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>查看量体数据</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="savaeditltdata" method="post" class="form-horizontal" id="form">
+            <input type="hidden" value="${id!}" name="id">
+            <br>
+            <#assign  num=0/>
+            <#list ltdata as x>
+            <div class="control-group">
+              <label class="control-label">${x.key!} :</label>
+              <div class="controls">
+              	<p class="span6" style="margin-top: 5px;margin-left: 0px;">
+                ${x.value!}
+              </p>
+              </div>
+            </div>
+            
+            <#assign  num=num+1/>
+			</#list>
+			
+            <div class="control-group">
+              <label class="control-label">图片:</label>
+              <div class="controls" style="display: none">
+                <input type="file" id="file" multiple="multiple" name="file" onchange="uploadImage(this);">
+                <input type="text" class="span6" name="dao.img0" id="img0">
+                <input type="text" class="span6" name="dao.img1" id="img1">
+                <input type="text" class="span6" name="dao.img2" id="img2">
+              </div>
+              <#list pic as x>
+               
+              <#if x?? && x!="">
+              	<img src="${x!}" style="width:120px;height:120px;margin-left:10px" id="fimg${x_index}" ">
+              <#else>
+                <img src="/img/add2.png" style="width:120px;height:120px;margin-left:10px" id="fimg${x_index}" ">
+              </#if>
+			  </#list>
+              <font color="red" id="msg"></font>
+            </div>
+          
+			<input type="hidden" name="num" value="${num!}">
+            </form>
+			
+            <div class="form-actions">
+              <button type="button" class="btn btn-warning" onclick="javascript:history.go(-1)">返回</button>
+              <button type="button" class="btn btn-success" onclick="location.href='/admin/editltdata?id=${id!}';">在此基础更新数据</button>
+              <button type="button" class="btn btn-info" onclick="location.href='/admin/createmakeorder?userid=${userr1!}&from=ly';">以最新数据下单</button>
+            </div>
+
+        </div>
+      </div>
+     
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+</body>
+</html>

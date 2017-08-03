@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+	<#include "inc/useradd.html"/>
+  	<div class="chat-message well" style="margin-left:1%;width:96%;">
+    <form action="/admin/user" method="post">
+                <button type="submit" class="btn btn-success">搜索</button>
+                <span class="input-box">
+                <input type="text" id="msg-box" placeholder="<#if search=="">手机号/用户名/姓名</#if>" name="search" <#if search!="">value="${search!}"</#if>>
+    </span></form></div>
+
+
+  	<div class="widget-box" style="margin-left:1%;width:98%;">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>会员列表</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>用户名</th>
+                  <th>姓名</th>
+                  <th>年龄</th>
+                  <th>性别</th>
+                  <th>身高(cm)</th>
+                  <th>体重(kg)</th>
+                  <th>手机号码</th>
+                  <th>会员类型</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <#if admin_user.power!='kf'>
+              <#list userPage.getList() as x>
+                <tr class="odd gradeX" style="text-align: center;">
+                  <td style="text-align: center;">${x.username!}</td>
+                  <td style="text-align: center;">${x.name!}</td>
+                  <td style="text-align: center;">${x.age!}</td>
+                  <#if x.sex=='1'>
+                  <td style="text-align: center;">男</td>
+                  <#elseif  x.sex=='0'>
+                  <td style="text-align: center;">女</td>
+                  <#else>
+                  <td style="text-align: center;"></td>
+                  </#if>
+                  <td style="text-align: center;">${x.cm!}</td>
+                  <td style="text-align: center;">${x.kg!}</td>
+                  <td style="text-align: center;">${x.tel!}</td>
+                  <td style="text-align: center;">${x.viptype!}</td>
+                  <td style="text-align: center;"><a href="/admin/edituser?id=${x.id!}">编辑</a>
+                    <a href="/admin/ltdata?id=${x.id!}">查看量体数据</a>
+                    <a href="/admin/createmakeorder?userid=${x.id!}&from=ly">下单</a>
+                    <a href="/admin/makedatebyuser?user_id=${x.id!}">查看其订单</a>
+                  </td>
+                </tr>
+               </#list>
+               </#if>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+<#if admin_user.power!='kf'>
+    <div style="width:98%;text-align:center;margin-top:10px;margin-left:1%;">
+    	<#include "/common/_paginate.html" />
+			<@paginate currentPage=userPage.pageNumber totalPage=userPage.totalPage actionUrl="/admin/user/" urlParas=urlParas/>
+	</div>
+	 </#if>
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

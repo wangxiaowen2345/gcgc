@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="/ykly/js/jquery.min.js"></script>
+		<link rel="stylesheet" href="/ykly/css/mui.min.css">
+	</head>
+	<body leftmargin="0" topmargin="0" rightmargin="0" topmargin="0">
+        <img src="/ykly/images/bd_bg.png" width="100%" height="100%" style="position:absolute;top:0;left:0;right:100;bottom:500;z-index:-1" />
+        <div style="margin-top: 30px;text-align: center;width: 100%;">
+        	<img src="${wx.headimgurl!}" style="width: 115px;height: 115px;border-radius:50%"/>
+        </div>
+        <div style="text-align: center;width: 100%;margin-top: 32px;">
+        	<small style="color: #FFFFFF;font-size: 16px;">微信账号绑定</small>
+        </div>
+        
+        <div style="margin-top: 32px;">
+        	<input type="text" style="border:0px;width: 84%;margin-left: 8%;height: 45px;background-color: #6c7071;" placeholder="输入手机号，绑定之后可快捷登陆" id="phone">
+        	<input type="text" style="border:0px;margin-top: 10px;width: 50%;margin-left: 8%;height: 45px;background-color: #6c7071;" placeholder="请输入验证码" id="valicode"><button style="margin-top: 10px;margin-left:0px;border:0px;width:34%;height: 45px;background-color: #000000;color: #ffffff;" onclick="getvalicode();" id="btn">获取验证码</button>
+        	<button style="margin-top: 10px;background-color: #4d6373;width: 84%;margin-left: 8%;height: 45px;border:0px;color:#ffffff;" onclick="sub();">立即绑定</button>
+        </div>
+        
+        <script>
+        	var openid = "${wx.openid!}";
+        	function sub(){
+        		var valicode = document.getElementById("valicode").value;
+        		phone = document.getElementById("phone").value;
+        		$.post("/m/dobd",{username:phone,valicode:valicode,openid:openid},
+      			function(data){
+
+					if(data.code==200){
+						alert("绑定成功！");
+						location.href = data.url;
+					}else{
+						alert(data.msg);
+					}
+
+      			},"json");
+        		
+        	}
+        	
+        	var phone = "";
+        	
+        	function getvalicode(){
+        		phone = document.getElementById("phone").value;
+        		if(!validatemobile(phone)){
+        			return;
+        		}
+				        		
+        		if(!tag)
+        			return;
+        			
+        		tag = false;
+        		
+        		$.post("/m/getvalicode",{username:phone},
+      			function(data){
+
+					if(data.code==200){
+						alert("验证码已发送！");
+						var i = 60;
+			        	setInterval(function(){
+			        		var btn=document.getElementById('btn');
+			        		if(i==0){
+			        			btn.innerText = "获取验证码";
+			        			tag = true;
+			        			return;
+			        		}
+							
+							btn.innerText=i+"秒后重发";
+							i--;
+						},1000);
+					}
+
+      			},"json");
+        	}
+        	
+        	function validatemobile(mobile) 
+		    { 
+		       if(mobile.length==0) 
+		       { 
+		          alert('请输入手机号码！'); 
+		          
+		          return false; 
+		       }     
+		       if(mobile.length!=11) 
+		       { 
+		           alert('请输入有效的手机号码！'); 
+		           
+		           return false; 
+		       } 
+		        
+		       var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/; 
+		       if(!myreg.test(mobile)) 
+		       { 
+		           alert('请输入有效的手机号码！'); 
+		      
+		           return false; 
+		       } 
+		       return true;
+		    } 
+        	
+        	var tag = true;
+        	
+        	
+        	
+        	
+        </script>
+        
+        
+    </body>
+</html>

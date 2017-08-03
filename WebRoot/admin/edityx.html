@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>编辑衣型</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="" method="post" class="form-horizontal" id="form">
+            <input type="hidden" value="${r.id!}" name="dao.id">
+            <div class="control-group">
+              <label class="control-label">名称 :</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.name" id="name" value="${r.name}">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">量体类型 :</label>
+              <div class="controls">
+                <select class="span6" name="dao.type">
+                  <#list typelist as x>
+                  <option value="${x_index!}" <#if x_index==r.type>selected</#if>>${x!}</option>
+                  </#list>
+                </select>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">面料 :</label>
+              <div class="controls">
+                <select class="span6" name="dao.isprice">
+                  <option value="0">请选择</option>
+                  <#list isprice as x>
+                  <option value="${x.id!}" <#if x.id==r.isprice>selected</#if>>${x.name!}</option>
+                  </#list>
+                </select>
+              </div>
+            </div>
+
+
+
+
+            </form>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="sub();">保存</button>
+            </div>
+
+        </div>
+      </div>
+      <script>
+
+          function checktype(){
+              var a = document.getElementById("type").value;
+              if(a == "1"){
+                document.getElementById("pricediv").style.display="none";
+                document.getElementById("unitdiv").style.display="none";
+                document.getElementById("remainderdiv").style.display="none";
+              }else{
+                document.getElementById("pricediv").style.display="block";
+                document.getElementById("unitdiv").style.display="block";
+                document.getElementById("remainderdiv").style.display="block";
+              }
+
+          }
+
+          function chek(){
+            var name = document.getElementById("name").value;
+            if(name==""){
+              alert("名称不能为空！");
+              return false;
+            }
+            return true;
+          }
+
+          function sub(){
+
+            if(chek()){
+                document.getElementById("form").submit();
+            }
+
+          }
+
+
+      </script>
+
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

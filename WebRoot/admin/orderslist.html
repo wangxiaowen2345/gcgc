@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+<div style="width:98%;text-align:left;margin-top:10px;margin-left:1%;">
+    <button class="btn btn-info" style="margin-right:10px;" onclick="javascript:window.location.href='/admin/orderslist';">全部</button>
+    <button class="btn btn-info" style="margin-right:10px;" onclick="javascript:window.location.href='/admin/orderslist?type=2';">改约</button>
+    <button class="btn btn-info" style="margin-right:10px;" onclick="javascript:window.location.href='/admin/orderslist?type=0';">待审核订单</button>
+    <button class="btn btn-info" style="margin-right:10px;" onclick="javascript:window.location.href='/admin/orderslist?type=1';">已审核</button>
+    <button class="btn btn-info" style="margin-right:10px;" onclick="javascript:window.location.href='/admin/orderslist?type=3';">已派单</button>
+    <button class="btn btn-info" style="margin-right:10px;" onclick="javascript:window.location.href='/admin/orderslist?type=10';">已量体</button>
+</div>
+
+    <div class="row-fluid" style="margin-left:1%;">
+
+
+
+
+
+        <div class="widget-box" style="width:98%;">
+          <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+            <h5>${page.title!}</h5>
+          </div>
+          <div class="widget-content">
+            <div class="todo">
+              <ul>
+
+
+                <#list contentPage.getList() as x>
+                
+				<#if admin_user.power=="qjd">
+				<#if admin_user.id?c=x.prentqjd?c>
+				<li class="clearfix">
+                  <a href="/admin/showorder?id=${x.id!}">
+                    <div class="txt"> 预约单号:Y${x.id!}&emsp;姓名:${x.name!}&emsp;电话:${x.tel!} &emsp;
+                      <#list state as y>
+                            <#if x.state==y.code>${y.adminhtml!}</#if>
+                      </#list>
+                  </div></a>
+                  <!--div class="pull-right">
+	                  <button class="btn btn-success btn-mini" onclick="pass(${x.id!});">通过预审</button>
+	                  <button class="btn btn-info btn-mini" onclick="location.href='editexamine?id=${x.id!}';">改约</button>
+	                  <button class="btn btn-warning btn-mini" onclick="invalid(${x.id!});">无效订单</button>
+                  </div-->
+                </li>
+                </#if>
+                </#if>
+                <#if admin_user.power=="sp">
+				<#if admin_user.id?c=x.shop?c>
+				<li class="clearfix">
+                  <a href="/admin/showorder?id=${x.id!}">
+                    <div class="txt"> 预约单号:Y${x.id!}&emsp;姓名:${x.name!}&emsp;电话:${x.tel!} &emsp;
+                      <#list state as y>
+                            <#if x.state==y.code>${y.adminhtml!}</#if>
+                      </#list>
+                  </div></a>
+                  <!--div class="pull-right">
+	                  <button class="btn btn-success btn-mini" onclick="pass(${x.id!});">通过预审</button>
+	                  <button class="btn btn-info btn-mini" onclick="location.href='editexamine?id=${x.id!}';">改约</button>
+	                  <button class="btn btn-warning btn-mini" onclick="invalid(${x.id!});">无效订单</button>
+                  </div-->
+                </li>
+                
+                </#if>
+                </#if>
+                <#if admin_user.power=="su" ||admin_user.power=="gl"||admin_user.power=="kf">
+				
+				<li class="clearfix">
+                  <a href="/admin/showorder?id=${x.id!}">
+                    <div class="txt"> 预约单号:Y${x.id!}&emsp;姓名:${x.name!}&emsp;电话:${x.tel!} &emsp;
+                      <#list state as y>
+                            <#if x.state==y.code>${y.adminhtml!}</#if>
+                      </#list>
+                  </div></a>
+                  <!--div class="pull-right">
+	                  <button class="btn btn-success btn-mini" onclick="pass(${x.id!});">通过预审</button>
+	                  <button class="btn btn-info btn-mini" onclick="location.href='editexamine?id=${x.id!}';">改约</button>
+	                  <button class="btn btn-warning btn-mini" onclick="invalid(${x.id!});">无效订单</button>
+                  </div-->
+                </li>
+                
+                
+                </#if>
+				</#list>
+
+
+
+              </ul>
+            </div>
+
+
+          </div>
+
+
+    </div>
+    <div style="width:98%;text-align:center;margin-top:10px;margin-left:1%;">
+    	<#include "/common/_paginate.html" />
+			<@paginate currentPage=contentPage.pageNumber totalPage=contentPage.totalPage actionUrl="/admin/orderslist/" />
+	</div>
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

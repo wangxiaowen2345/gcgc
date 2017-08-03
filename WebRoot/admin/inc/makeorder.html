@@ -1,0 +1,50 @@
+<#if state=-200>
+
+<#elseif state=-100>
+
+<#elseif state=-101>
+
+<#elseif state=-102>
+
+<#elseif state=-10>
+
+<#elseif state=-11>
+
+<#elseif state=-12>
+
+<#elseif state=0>
+
+<#elseif state=1>
+
+<#if admin_user.power=='lt'||admin_user.power=='sp'>
+  <div class="pull-right">
+	 <button class="btn btn-warning btn-mini" onclick="invalid(${x.id!},1);">取消订单</button>
+	 <button class="btn btn-warning btn-mini" onclick="invalid(${x.id!},0);">无效订单</button>
+ </div>
+ </#if>
+<#elseif state=2>
+<#if admin_user.power=='gl'>
+  <div class="pull-right">
+	 <button class="btn btn-warning btn-mini" onclick="invalid(${x.id!},1);">取消订单</button>
+	 <button class="btn btn-warning btn-mini" onclick="invalid(${x.id!},0);">无效订单</button>
+ </div>
+ </#if>
+<#elseif state=10>
+
+<#elseif state=20>
+
+<#elseif state=30>
+
+<#elseif state=50>
+
+<#elseif state=60>
+
+<#elseif state=70>
+
+<#elseif state=80>
+
+<#elseif state=100>
+
+<#elseif state=-200>
+
+</#if>

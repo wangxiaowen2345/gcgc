@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/colorpicker.css" />
+<link rel="stylesheet" href="/css/datepicker.css" />
+<link rel="stylesheet" href="/css/uniform.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/select2.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+<link rel="stylesheet" href="/css/bootstrap-wysihtml5.css" />
+
+
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+<#include "inc/cmsadd.html"/>
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>添加文章</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="doaddart" method="post" class="form-horizontal" id="form">
+          <input type="hidden" name="dao.type" value="art"/>
+          <input type="hidden" name="dao.publish" value="${admin_user.id!}"/>
+            <div class="control-group">
+              <label class="control-label">文章标题 :</label>
+              <div class="controls">
+                <input type="text" class="span6" id="title" name="dao.title">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">副名称 :</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.sorttitle">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">发布人:</label>
+              <div class="controls">
+                <input type="text" class="span6" value="${admin_user.username!}" readOnly="true">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">发布时间:</label>
+              <div class="controls">
+                <input type="text" class="span6" value="${time!}" readOnly="true">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">所属分类:</label>
+              <div class="controls">
+                <select class="span6" name="dao.prent">
+                <#list list as x>
+                  <option value="${x.id!}">${x.title!}</option>
+                </#list>
+                </select>
+              </div>
+            </div>
+            <script type="text/javascript" charset="utf-8" src="/admin/ue/ueditor.config.js"></script>
+	    	<script type="text/javascript" charset="utf-8" src="/admin/ue/ueditor.all.min.js"> </script>
+	    	<script type="text/javascript" charset="utf-8" src="/admin/ue/lang/zh-cn/zh-cn.js"></script>
+
+      		<script id="editor" type="text/plain" style="width:960px;height:500px;margin-left:100px;margin-top:10px;"></script>
+      		<input type="hidden" id="contenta" name="dao.content">
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="sub();">保存</button>
+            </div>
+          </form>
+        </div>
+
+
+      </div>
+
+
+
+      <script language="javascript">
+      	UE.getEditor('editor');
+      	function sub(){
+      		var content = UE.getEditor('editor').getContent();
+      		document.getElementById("contenta").value = content;
+      		var title = $("#title").val();
+
+      		if(title.length==0){
+      			alert("文章标题不能为空");
+      			return;
+      		}
+
+      		document.getElementById("form").submit();
+
+      	}
+      </script>
+
+
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

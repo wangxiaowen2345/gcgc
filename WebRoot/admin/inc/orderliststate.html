@@ -1,0 +1,13 @@
+<#if state=-1>
+<span class="ly label label">无效订单</span>
+<#elseif state=0>
+<span class="ly label label-important">新订单</span>
+<#elseif state=1>
+<span class="ly label label-wrining">已审核订单，等待派单</span>
+<#elseif state=2>
+<span class="ly label label-wrining">改约订单</span>
+<#elseif state=3>
+<span class="ly label label-important">待量体订单</span>
+<#elseif state=10>
+<span class="ly label label-success">完成量体</span>
+</#if>

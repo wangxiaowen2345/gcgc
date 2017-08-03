@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>预约到店量体</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="/ykly/js/jquery.min.js"></script>
+		<link rel="stylesheet" href="/ykly/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="/ykly/css/mui.picker.min.css" />
+	</head>
+	<body style="background: #263137;text-align: center;">
+		<div style="margin-top: 30px;">
+			<img src="/ykly/
+				images/login1.png" width="68" height="68">
+		</div>
+		<div style="margin-top: 20px;">	
+			<small style="color: #FFFFFF;font-size: 18px;">填写预约信息</small>
+			
+		</div>
+		<form action="/m/doshopexamine" method="post" id="form">
+		<div style="width: 90%;margin-left: 5%;background: #ffffff;border-radius:10px;padding: 15px 1%;">
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;">
+				<input id="name" name="dao.name" style="background: url(/ykly/images/name20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;" placeholder="请填写姓名，预约专员为您量体" type="text" value="${user.name!}"/>
+			</div>
+			
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;margin-top: 15px;">
+				<input id="phone" name="dao.tel" style="background: url(/ykly/images/phone20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;" placeholder="请输入电话，享受专人服务" type="text" value="${user.tel!}"/>
+			</div>
+			
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;margin-top: 15px;">
+				<select name="dao.shop" style="background: url(/ykly/images/position20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;"  >
+					<#list shop as x>
+					<option value="${x.id!}">${x.name!}</option>
+					</#list>
+				</select>
+			</div>
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;margin-top: 15px;">
+				<input name="dao.emtime" style="background: url(/ykly/images/time20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;" readonly="readonly"
+					data-options='{}' placeholder="请选择您的时间，我们的时间您来掌控" type="text" id="timeint"/>
+			</div>
+			<div style="width: 95%;background-color: #FFFFFF;padding: 0px 10px;margin-top: 15px;margin-bottom: -10px;">
+				<input name="dao.remark" style="background: url(/ykly/images/bj20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;" placeholder="备注，选填" type="text"/>
+			</div>
+			
+			</form>
+		</div>
+		
+		
+		<div onclick="sub();" style="margin-left:20%;margin-top:40px;width: 60%;height: 40px;border:1px solid #FFFFFF;border-radius: 10px;padding-top: 7px;">
+			<small style="color: #FFFFFF;font-size: 15px;">马上预约</small>
+		</div>
+		
+		
+		<div style="text-align: center;margin-bottom: 12px;margin-top: 12px;">
+			
+			<small style="font-size: 12px;color: #FFFFFF;">全国热线电话：400-000-6577</small><br>
+			<small style="font-size: 12px;margin-top: 10px;color: #FFFFFF;">鲁TCP备09077170号-3</small>
+		
+		</div>
+		
+		
+		<script>
+			function sub(){
+				var name = $("#name").val();
+				var phone = $("#phone").val();
+				var time = $("#timeint").val();
+				
+				if(name==""){
+					alert("请填写您的姓名");
+					return;
+				}
+				
+				if(!validatemobile(phone)){
+					return;
+				}
+				
+				if(time==""){
+					alert("请选择预约时间");
+					return;
+				}
+				document.getElementById("form").submit();			
+			}
+			
+			
+			function validatemobile(mobile) 
+		    { 
+		       if(mobile.length==0) 
+		       { 
+		          alert('请输入手机号码！'); 
+		          
+		          return false; 
+		       }     
+		       if(mobile.length!=11) 
+		       { 
+		           alert('请输入有效的手机号码！'); 
+		           
+		           return false; 
+		       } 
+		        
+		       var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/; 
+		       if(!myreg.test(mobile)) 
+		       { 
+		           alert('请输入有效的手机号码！'); 
+		      
+		           return false; 
+		       } 
+		       return true;
+		    } 
+		</script>
+	</body>
+</html>
+		<script src="/ykly/js/mui.min.js"></script>
+		<script src="/ykly/js/mui.picker.min.js"></script>
+		<script>
+			(function($) {
+				$.init();
+				var result = $('#result')[0];
+				var btns = $('#timeint');
+				btns.each(function(i, btn) {
+					btn.addEventListener('tap', function() {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');
+						/*
+						 * 首次显示时实例化组件
+						 * 示例为了简洁，将 options 放在了按钮的 dom 上
+						 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+						 */
+						var picker = new $.DtPicker(options);
+						picker.show(function(rs) {
+							/*
+							 * rs.value 拼合后的 value
+							 * rs.text 拼合后的 text
+							 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+							 * rs.m 月，用法同年
+							 * rs.d 日，用法同年
+							 * rs.h 时，用法同年
+							 * rs.i 分（minutes 的第二个字母），用法同年
+							 */
+							document.getElementById("timeint").value = rs.text;
+							/* 
+							 * 返回 false 可以阻止选择框的关闭
+							 * return false;
+							 */
+							/*
+							 * 释放组件资源，释放后将将不能再操作组件
+							 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+							 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+							 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+							 */
+							picker.dispose();
+						});
+					}, false);
+				});
+			})(mui);
+		</script>

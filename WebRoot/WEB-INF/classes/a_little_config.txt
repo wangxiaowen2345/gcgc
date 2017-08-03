@@ -1,0 +1,50 @@
+jdbcUrl = jdbc:mysql://127.0.0.1/pm?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = root
+password = root
+devMode = true
+
+FileBaseURL = http://www.gcgc.cn/file/
+
+StaticFileBaseURL = http://www.gcgc.cn/upload/
+
+DownLoadFileType = StaticFileBaseURL
+
+token=123456
+
+appId=wx38195700106aac78
+
+appSecret=23f1e15194818835d7863d573b06520e
+
+encryptMessage=false
+
+EncodingAESKey=kTuQ4AFwE4GpI8ATu3b9urm21suwv1iNihlICIyR1jK
+
+good_class = 西装系列/牛仔裤系列/休闲裤系列/外套系列/衬衫系列/T恤系列/夹克系列/旗袍系列
+
+type-test = 衬衣、T恤/西服、青年装、男夹克、男外套/旗袍、连衣裙/裙子（半裙）/裤子
+
+type = 整体量体
+
+typea = 领围/胸围/中腰围/腹围/臀围/总肩宽/袖长/前衣长/后衣长/上臂围/肘围/手腕围/前胸宽/后背宽/前肩宽/前腰节长/后腰节长/臀高/胸高/胸距/腰围/腿根围/立裆/前浪/通裆/裤长/膝围/小腿围/脚口
+
+typea1 = 前衣长/胸围/中腰围/臀围/领围/肩宽/长袖袖长/短袖袖长/前胸宽/后背宽
+
+typeb1 = 前衣长/后衣长/胸围/中腰围/臀围/肩宽/袖长/前胸宽/后背宽/上臂围/袖口
+
+typec1 = 总衣长/前腰节/后腰节/领围/胸围/腰围/臀围/前胸宽/后背宽/肩宽/胸高/胸距/臀高/上臂围/有袖袖长/无袖袖长/侧开旗的长短
+
+typed1 = 裙长/裙腰/臀围/下摆围
+
+typee1 = 裤长/腰围/臀围/腿根围/中档围（膝围）/脚口/立裆/前浪/后浪/通裆
+
+
+persondata = [{type:"String",grade:"驼背/微驼/正常/挺胸",data:"背驼度"},{type:"String",grade:"溜肩/左低右高/左高右低/正常/耸肩/平肩",data:"肩斜度"},{type:"String",grade:"凸坠/凸肚/微凸/正常/平肚",data:"肚凸度"},{type:"String",grade:"翘臀/微翘/正常/平臀",data:"臀翘度"}]
+
+orderpersondata = [{type:"String",grade:"宽松/稍松/标准/稍紧/紧身",data:"紧身度"},{type:"String",grade:"短/稍短/标准/稍长/长",data:"衣长"},{type:"String",grade:"短/稍短/标准/稍长/长",data:"袖长"}]
+
+orderpersontrousersdata = [{type:"String",grade:"宽松/稍松/标准/稍紧/紧身",data:"紧身度"}]
+
+                          
+typetempa = 领围/胸围/中腰围/腹围/臀围/总肩宽/袖长/前衣长/后衣长/上臂围/肘围/手腕围/前胸宽/后背宽/前肩宽/前腰节长/后腰节长/臀高/胸高/胸距/腰围/腿根围/立裆/前浪/通裆/裤长/膝围/小腿围/脚口
+
+persondatatemp = [{type:"String",grade:"驼背/微驼/正常/挺胸",data:"背驼度"},{type:"String",grade:"溜肩/左低右高/左高右低/正常/耸肩/平肩",data:"肩斜度"},{type:"String",grade:"凸坠/凸肚/微凸/正常/平肚",data:"肚凸度"},{type:"String",grade:"翘臀/微翘/正常/平臀",data:"臀翘度"}]

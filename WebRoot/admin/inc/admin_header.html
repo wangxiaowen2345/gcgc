@@ -1,0 +1,226 @@
+<!--Header-part-->
+<script src="/js/excanvas.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.ui.custom.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.flot.min.js"></script>
+<script src="/js/jquery.flot.resize.min.js"></script>
+<script src="/js/jquery.peity.min.js"></script>
+<script src="/js/fullcalendar.min.js"></script>
+<script src="/js/matrix.js"></script>
+<script src="/js/matrix.dashboard.js"></script>
+<script src="/js/jquery.gritter.min.js"></script>
+<script src="/js/matrix.interface.js"></script>
+<script src="/js/matrix.chat.js"></script>
+<script src="/js/jquery.validate.js"></script>
+<script src="/js/matrix.form_validation.js"></script>
+<script src="/js/jquery.wizard.js"></script>
+<script src="/js/jquery.uniform.js"></script>
+<script src="/js/select2.min.js"></script>
+<script src="/js/matrix.popover.js"></script>
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/matrix.tables.js"></script>
+
+
+<script src="/js/bootstrap-colorpicker.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/jquery.toggle.buttons.html"></script>
+<script src="/js/matrix.form_common.js"></script>
+<script src="/js/wysihtml5-0.3.0.js"></script>
+<script src="/js/jquery.peity.min.js"></script>
+<script src="/js/bootstrap-wysihtml5.js"></script>
+<div id="header">
+  <h1><a href="dashboard.html">管理后台</a></h1>
+</div>
+<!--close-Header-part-->
+
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text"> ${admin_user.username!},欢迎您！   </span><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#"><i class="icon-user"></i>修改密码</a></li>
+        <li class="divider"></li>
+        <!-- li><a href="#"><i class="icon-check"></i>XXXX</a></li>
+        <li class="divider"></li-->
+        <li><a href="/admin/outlog"><i class="icon-key"></i>退出登陆</a></li>
+      </ul>
+    </li>
+   <!--  <li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages" class="dropdown-toggle"><i class="icon icon-envelope"></i> <span class="text">Messages</span> <span class="label label-important">5</span> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a class="sAdd" title="" href="#"><i class="icon-plus"></i> new message</a></li>
+        <li class="divider"></li>
+        <li><a class="sInbox" title="" href="#"><i class="icon-envelope"></i> inbox</a></li>
+        <li class="divider"></li>
+        <li><a class="sOutbox" title="" href="#"><i class="icon-arrow-up"></i> outbox</a></li>
+        <li class="divider"></li>
+        <li><a class="sTrash" title="" href="#"><i class="icon-trash"></i> trash</a></li>
+      </ul>
+    </li>-->
+    <!-- li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">个人设置</span></a></li-->
+    <li class=""><a title="" href="/admin/outlog"><i class="icon icon-share-alt"></i> <span class="text">退出登陆</span></a></li>
+  </ul>
+</div>
+<!--close-top-Header-menu-->
+<!--start-top-serch
+<div id="search">
+  <input type="text" placeholder="Search here..."/>
+  <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
+</div>
+<!--close-top-serch-->
+<div class="copyrights">青岛灵基网络科技有限公司 版权所有</div>
+<!--sidebar-menu-->
+<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> 菜单面板</a>
+  <ul>
+    <li> <!--class="active"--><a href="/admin"><i class="icon icon-home"></i> <span>后台首页</span></a> </li>
+    <li> <a href="/admin/cms"><i class="icon icon-signal"></i> <span>内容管理</span></a> </li>
+    <li> <a href="/admin/examine"><i class="icon icon-inbox"></i> <span>订单预审</span><span id="examine_order" class="label label-important" style="display:none;">0</span></a> </li>
+    <li><a href="/admin/orderpd"><i class="icon icon-th"></i> <span>订单派单</span><span id="sendlist_order" class="label label-important" style="display:none;">0</span></a></li>
+    <li><a href="/admin/orderlt"><i class="icon icon-fullscreen"></i> <span>量体订单</span><span id="lt_order" class="label label-important" style="display:none;">0</span></a></li>
+    <li><!-- class="submenu"--> <a href="/admin/orderslist"><i class="icon icon-info-sign"></i> <span>预约订单</span><span id="all_ing_order" class="label label-important" style="display:none;">0</span>
+       <!--span class="label label-important">4</span--></a>
+      <!--ul>
+        <li><a href="error403.html">Error 403</a></li>
+        <li><a href="error404.html">Error 404</a></li>
+        <li><a href="error405.html">Error 405</a></li>
+        <li><a href="error500.html">Error 500</a></li>
+      </ul-->
+    </li>
+
+    <li><a href="/admin/makeorder"><i class="icon icon-pencil"></i> <span>生产订单</span><span id="make_order" class="label label-important" style="display:none;">0</span></a></li>
+
+    <li><a href="/admin/user"><i class="icon icon-th-list"></i> <span>会员管理</span></a></li>
+    <!--li><a href="/admin/admin"><i class="icon icon-tint"></i> <span>后台账户</span></a></li-->
+    <li><a href="/admin/yx"><i class="icon icon-file"></i> <span>商品管理</span></a></li>
+    <li><a href="/admin/requirement"><i class="icon icon-file"></i> <span>布料需求</span></a></li>
+    <!--li><a href="/admin/position"><i class="icon icon-th-list"></i> <span>地域管理</span></a></li-->
+
+		<li class="submenu open"> <a href="#"><i class="icon icon-file"></i> <span>后台管理</span> <!--span class="label label-important">5</span--></a>
+      <ul>
+        <li><a href="/admin/admin">后台账户</a></li>
+        <li><a href="/admin/position">地域管理</a></li>
+        <li><a href="/admin/admin?type=qjd">旗舰店管理</a></li>
+        <li><a href="/admin/admin?type=sp">门店管理</a></li>
+        <li><a href="/admin/admin?type=lt">量体师管理</a></li>
+        <li><a href="/admin/admin?type=fc">生产工厂管理</a></li>
+        <li><a href="/admin/wlorgyutil">面料管理工具</a></li>
+      </ul>
+    </li>
+
+    <li class="content"> <span>内存使用率</span>
+      <div class="progress progress-mini progress-danger active progress-striped">
+        <div style="width: 0%;" class="bar" id="minfowidth"></div>
+      </div>
+      <span class="percent" id="minfo">0%</span>
+      <div class="stat" id="minfot">请等待……</div>
+    </li>
+    <li class="content"> <span>磁盘使用率</span>
+      <div class="progress progress-mini active progress-striped">
+        <div style="width: 0%;" class="bar" id="dinfowidth"></div>
+      </div>
+      <span class="percent" id="dinfo">0%</span>
+      <div class="stat" id="dinfot">请等待……</div>
+    </li>
+    <script>
+    	//getinfo();
+
+    	function getinfo(){
+	    	setTimeout(function () {
+	    		$.get("/admin/systeminfo",function(data){
+
+                wait_time = 3000;
+	             	  var s = "";
+
+                  s = (((data.totalMemory - data.freeMemory) / data.totalMemory).toFixed(2) * 100).toFixed(0)  + "%";
+	               	document.getElementById("minfot").innerText=(data.totalMemory - data.freeMemory).toFixed(2)+" MB / "+data.totalMemory.toFixed(2)+" MB";
+	               	document.getElementById("minfo").innerText=s;
+	               	document.getElementById("minfowidth").style.width=s;
+
+	               	s = (((data.totaldisk - data.freedisk) / data.totaldisk).toFixed(2) * 100).toFixed(0)  + "%";
+	               	document.getElementById("dinfot").innerText=(data.totaldisk - data.freedisk).toFixed(2)+" GB / "+data.totaldisk.toFixed(2)+" GB";
+	                document.getElementById("dinfo").innerText=s;
+	               	document.getElementById("dinfowidth").style.width=s;
+
+	                getinfo();
+	           },"json");
+	    	}, wait_time);
+    	}
+
+
+      //getmsg();
+
+      var wait_time=0;
+
+      function getmsg(){
+	    	setTimeout(function () {
+	    		$.get("/msgnum",function(data){
+
+                wait_time = 3000;
+
+                var msgtag = false;
+
+
+                if(data.examine_order!=0){
+                  if($("#examine_order").html()!=data.examine_order)
+                    msgtag = true;
+                  $("#examine_order").html(data.examine_order);
+                  $("#examine_order")[0].style.display="block";
+                }else{
+                  $("#examine_order")[0].style.display="none";
+                }
+
+                if(data.sendlist_order!=0){
+                  if($("#sendlist_order").html()!=data.sendlist_order)
+                    msgtag = true;
+                  $("#sendlist_order").html(data.sendlist_order);
+                  $("#sendlist_order")[0].style.display="block";
+                }else{
+                  $("#sendlist_order")[0].style.display="none";
+                }
+
+                if(data.lt_order!=0){
+                  if($("#lt_order").html()!=data.lt_order)
+                    msgtag = true;
+                  $("#lt_order").html(data.lt_order);
+                  $("#lt_order")[0].style.display="block";
+                }else{
+                  $("#lt_order")[0].style.display="none";
+                }
+
+                if(data.all_ing_order!=0){
+                  if($("#all_ing_order").html()!=data.all_ing_order)
+                    msgtag = true;
+                  $("#all_ing_order").html(data.all_ing_order);
+                  $("#all_ing_order")[0].style.display="block";
+                }else{
+                  $("#all_ing_order")[0].style.display="none";
+                }
+
+                if(data.make_order!=0){
+                  if($("#make_order").html()!=data.make_order)
+                    msgtag = true;
+                  $("#make_order").html(data.make_order);
+                  $("#make_order")[0].style.display="block";
+                }else{
+                  $("#make_order")[0].style.display="none";
+                }
+
+                if(msgtag){
+                  $.gritter.add({
+                        title:	'提示',
+                        text:	'您有未处理事项！请尽快处理。。。',
+                        sticky: false
+                      });
+                }
+
+	              getmsg();
+	           },"json");
+	    	}, wait_time);
+    	}
+
+
+    </script>
+  </ul>
+</div>
+<!--sidebar-menu-->

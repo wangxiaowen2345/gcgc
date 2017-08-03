@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <title>${K.WebSite_Name!K.WebSite_Admin_Name!}</title><meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/bootstrap-responsive.min.css" />
+        <link rel="stylesheet" href="../css/matrix-login.css" />
+        <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+		<style>
+			body{
+				font-family:Microsoft YaHei;
+			}
+		</style>
+    </head>
+    <body>
+        <div id="loginbox">            
+            <form id="loginform" class="form-vertical" action="dologin">
+				 <div class="control-group normal_text"> <h3><img src="../img/logo.png" alt="Logo" /></h3></div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_lg" style="width:45px;"><i style="font-style:normal;">用户名</i></span><input id="username" type="text" placeholder="Username" />
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly" style="width:45px;"><i style="font-style:normal;">密码</i></span><input id="password" type="password" placeholder="Password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                   <!-- <span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">&nbsp;忘&nbsp;记&nbsp;密&nbsp;码&nbsp;</a></span> -->
+                    <span class="pull-right"><a type="button" href="javascript:dologin();" class="btn btn-success" />&nbsp;后&nbsp;台&nbsp;登&nbsp;陆&nbsp;</a></span>
+                </div>
+            </form>
+           <!--  <form id="recoverform" action="#" class="form-vertical">
+				<p class="normal_text">Enter your e-mail address below and we will send you instructions how to recover a password.</p>
+				
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_lo"><i class="icon-envelope"></i></span><input type="text" placeholder="E-mail address" />
+                        </div>
+                    </div>
+               
+                <div class="form-actions">
+                    <span class="pull-left"><a href="#" class="flip-link btn btn-success" id="to-login">&laquo; Back to login</a></span>
+                    <span class="pull-right"><a class="btn btn-info"/>Reecover</a></span>
+                </div>
+            </form>
+             -->
+        </div>
+        
+        <script src="../js/jquery.min.js"></script>  
+        <script src="../js/matrix.login.js"></script>
+        
+        <script language="javascript">
+        	function dologin(){
+        		var username = $("#username").val();
+        		var password = $("#password").val();
+        		$.post("dologin", { "username": username,"password":password },
+			   		function(data){
+			   			if(data.code=="200"){
+			   				window.location.href=data.message;
+			   			}else if(data.code=="400" || data.code=="401"){
+			   				alert(data.message);
+			   			}
+			     
+			  		}, "json");
+			   }
+        	
+        </script> 
+    </body>
+
+</html>

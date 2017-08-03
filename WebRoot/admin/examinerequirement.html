@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/admin/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+
+
+
+  	<div class="widget-box" style="margin-left:1%;width:98%;">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>需求清单</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>提交人</th>
+                  <th>提交时间</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <#list list as x>
+                <tr class='odd gradeX' style='text-align: center;'>
+                    <td style='text-align: center;'>
+                      ${x.name!}
+                    </td>
+                    <td style='text-align: center;'>
+                      ${x.user_name!}
+                    </td>
+                    <td style='text-align: center;'>
+                      ${x.time!}
+                    </td>
+                    <td style='text-align: center;'>
+                      <button class="btn btn-success btn-mini" onclick="doexaminerequirement(${x.id!},1);">有库存</button>
+                      <button class="btn btn-warning btn-mini" onclick="doexaminerequirement(${x.id!},2);">库存紧张</button>
+                      <button class="btn btn-danger btn-mini" onclick="doexaminerequirement(${x.id!},3);">无库存</button>
+                    </td>
+                </tr>
+                </#list>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+<script>
+function doexaminerequirement(id,state){
+  $.post("doexaminerequirement",{id:id,state:state},
+    function(data){
+      if(data.code==200){
+        location.reload();
+      }else{
+        alert("未知错误。");
+      }
+    },"json");
+}
+
+</script>
+
+
+
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

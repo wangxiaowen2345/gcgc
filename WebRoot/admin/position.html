@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+    <div class="row-fluid" style="margin-left:1%;">
+
+        <div class="widget-box" style="width:98%;">
+          <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+            <h5>${name!"省份"}</h5>
+          </div>
+          <div class="widget-content">
+            <div class="todo">
+              <ul>
+
+			<#if admin_user.power!='kf'&&admin_user.power!='qjd'&&admin_user.power!='gl'&&admin_user.power!='sp'&&admin_user.power!='lt'>
+                <#list position as x>
+
+
+
+				<li class="clearfix">
+                  <a href="<#if grade!=1>position?prent=${x.id!}<#else>#</#if>">
+                    <div class="txt">${x.name!}
+
+                  </div></a>
+                  <div class="pull-right">
+	                  <#if grade!=1>
+                    <button class="btn btn-success btn-mini" onclick="location.href='addposition?prent=${x.id!}';">添加</button>
+	                  <#else>
+	                  <button class="btn btn-success btn-mini" onclick="location.href='editposition?id=${x.id!}';">修改</button>
+	                  </#if>
+	                  <button class="btn btn-danger btn-mini" onclick="location.href='delposition?id=${x.id!}';">删除</button>
+                  </div>
+                </li>
+
+				</#list>
+				</#if>
+        <#if !name??>
+        <li class="clearfix">
+                  <a href="addposition?prent=0" style="color:#28b779;">
+                    <div class="txt">添加...
+
+                  </div></a>
+                  <div class="pull-right">
+
+                  </div>
+                </li>
+              </#if>
+
+              </ul>
+            </div>
+
+
+          </div>
+
+
+    </div>
+    <div style="width:98%;text-align:center;margin-top:10px;margin-left:1%;">
+	</div>
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

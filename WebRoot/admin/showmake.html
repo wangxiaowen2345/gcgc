@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>生产工单</title>
+
+		<style>
+		table{border-collapse:collapse;border-spacing:0;border-left:1px solid #888;border-top:1px solid #888;background:#efefef;}
+		th,td{border-right:1px solid #888;border-bottom:1px solid #888;padding:5px 15px;}
+		</style>
+	</head>
+	<body style="text-align: center;">
+	<button style="margin-left:10px;float: left;" onclick="window.history.go(-1);">返回</button>
+	<button style="margin-left:10px;float: left;" onclick="javascript:excelout()">导出</button>
+		<h1>生产工单</h1>
+		<SCRIPT type="text/javascript">
+		var head = new Array();
+		var dataList = new Array();
+		var warehousename;
+		</SCRIPT>
+		<table border="1" style="width:750px;margin:0 auto;text-align: left;">
+			<tr>
+				
+				<th width="25%">订单号</th>
+				<script type="text/javascript">
+				head[0]="日期";
+				head[1]="承运门店";
+				head[2]="订单号";
+				head[3]="客户姓名";
+				head[4]="电话";
+				head[5]="地址";
+				head[6]="性别";
+				head[7]="年龄";
+				head[8]="身高";
+				head[9]="体重";
+				head[10]="备注";
+				head[11]="收件人地址";
+				dataList[0]="${r.time!}";	
+				dataList[2]="S${r.id!}";				
+				dataList[3]="${r.name!}";
+				dataList[4]="${r.tel!}";				
+				dataList[5]="${r.address!}";
+						
+				dataList[7]="${r.age!}";
+				dataList[8]="${r.cm!}";				
+				dataList[9]="${r.kg!}";
+				var replaceStr = ',';
+				var replaceStr1 = '，';
+				var replaceStr2 = '<\/br/>';
+				var remark = "${r.remark!}".replace(new RegExp(replaceStr,'gm'),'-').replace(new RegExp(replaceStr1,'gm'),'-').replace(new RegExp(replaceStr2,'gm'),' ');
+				dataList[10]=remark;
+				dataList[11]="${r.address!}";
+				</script>
+				<th width="25%">S${r.id!}</th>
+				<th width="25%">委托商</th>
+				<th width="25%">
+					<#list fc1 as x>
+							${x.name!}
+							<script type="text/javascript">
+							dataList[1]="${x.name!}";
+							</script>
+					</#list>
+				</th>
+			</tr>
+			<tr>
+				<th width="25%">姓名</th>
+				<th width="25%">${r.name!}</th>
+				<th width="25%">电话</th>
+				<th width="25%">${r.tel!}</th>
+			</tr>
+			<tr>
+				<th width="25%">性别</th>
+				<th width="25%">
+				<#if r.sex=='1'>男
+							<script type="text/javascript">
+							dataList[6]="男";
+							</script>
+				<#else>女
+							<script type="text/javascript">
+							dataList[6]="女";
+							</script>
+							</#if>
+				</th>
+				<th width="25%">身高</th>
+				<th width="25%">${r.cm!}</th>
+			</tr>
+			<tr>
+				<th width="25%">年龄</th>
+				<th width="25%">${r.age!}</th>
+				<th width="25%">体重</th>
+				<th width="25%">${r.kg!}</th>
+			</tr>
+			<tr>
+				<th width="25%">备注信息</th>
+				<th colspan="4" >${r.remark!}</th>
+			</tr>
+			<tr>
+				<th width="25%">收件人地址</th>
+				<th colspan="4" >${r.address!}</th>
+			</tr>
+			
+
+			<tr>
+				<td colspan="4" style="text-align:center;">量体数据</td>
+			</tr>
+			<#assign num=12>
+			<#list ltdata as x>
+			<#if x_index%2==0>
+			<tr>
+			</#if>
+
+				<td>${x.name!}</td>
+				<td>${x.value!}</td>
+				<script type="text/javascript">
+				head[${num!}]="${x.name!}";
+				dataList[${num!}]="${x.value!}";
+				</script>
+			<#if x_index%2==1>
+			</tr>
+			</#if>
+			<#assign num=num+1>
+			</#list>
+			
+
+
+			<tr>
+				<td colspan="4" style="text-align:center;">订单数据</td>
+			</tr>
+			
+			<#assign num1=45>
+			<#list data as x>
+			<#if x_index%2==0>
+			<tr>
+			</#if>
+				<td>${x.name!}</td>
+				<td>${x.value!}</td>
+				<script type="text/javascript">
+				head[${num1!}]="${x.name!}";
+				dataList[${num1!}]="${x.value!}";
+				</script>
+			<#if x_index%2==1>
+			</tr>
+			</#if>
+			<#assign num1=num1+1>
+			</#list>
+			<tr>
+				<td width="25%">体征图片</td>
+				<td colspan="3" style="text-align:center;">
+					<img src="${r.ltpic1!}" style="max-width:550px;">
+					<#if r.ltpic2?? && r.ltpic2!="">
+					<br/>
+					<img src="${r.ltpic2!}" style="max-width:550px;">
+					</#if>
+					<#if r.ltpic3?? && r.ltpic3!="">
+					<br/>
+					<img src="${r.ltpic3!}" style="max-width:550px;">
+					</#if>
+
+				</td>
+			</tr>
+
+		</table>
+
+<input id="btnPrint" type="button" value="打印" onclick="javascript:window.print();" />
+<script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript">
+		//Post方式提交表单
+		function excelout() {
+		
+		var ExportForm = document.createElement("FORM");
+		
+		var newElement = document.createElement("input");
+		newElement.setAttribute("name","head");
+		newElement.setAttribute("type","hidden");
+		newElement.value = JSON.stringify(head);
+		ExportForm.appendChild(newElement);
+		
+		var newElement1 = document.createElement("input");
+		newElement1.setAttribute("name","dataList");
+		newElement1.setAttribute("type","hidden");
+		newElement1.value = JSON.stringify(dataList);
+		ExportForm.appendChild(newElement1);
+		
+		document.body.appendChild(ExportForm);
+		ExportForm.setAttribute("target","_blank");
+		ExportForm.method ="POST";
+		var postUrl = "excelout"; //提交地址
+		ExportForm.action = postUrl;
+		console.log(ExportForm);
+		ExportForm.submit();
+		}
+		</script>
+	</body>
+</html>

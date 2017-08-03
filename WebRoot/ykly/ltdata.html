@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的量体</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="/ykly/js/jquery.min.js"></script>
+		<link rel="stylesheet" href="/ykly/css/mui.min.css">
+		<style type="text/css">
+			a:link {color: #666666} /* 未访问的链接 */
+			a:visited {color: #666666} /* 已访问的链接 */
+			a:hover {color: #666666} /* 鼠标移动到链接上 */
+			a:active {color: #666666} /* 选定的链接 */
+		</style><style> 
+		.divcss5{ border:1px solid #000; width:100%; height:auto;overflow:hidden} 
+		.divcss5 img{max-width:300px;_width:expression(this.width > 300 ? "300px" : this.width);} 
+		</style> 
+	</head>
+	<body leftmargin="0" topmargin="0" rightmargin="0" topmargin="0" style="background: #F6F6F6;color: #666666;">
+
+      
+        <div style="width: 100%;padding-top: 10px;">
+
+        	<div>
+        		<div style="margin-top:1px;padding:12px;background: #FFFFFF;text-align: center;">
+        			<small style="font-size: 15px;">个人信息</small>
+        		</div>
+        		<script>
+        			function editvalue(div_id,a_id){
+        				document.getElementById(div_id).style.display = "inline";
+        				//document.getElementById(a_id).style.display = "none";
+        			}
+        			function subeditvalue(div_id,input_id,a_id,url){
+        				
+        				var value = document.getElementById(input_id).value;
+        				var key = input_id;
+        				
+        			
+        				document.getElementById(a_id).style.display = "";
+        				document.getElementById(div_id).style.display = "none";
+        				
+        				$.post("/m/updateduserinfo",{key:key,value:value,id:url},
+			      			function(data){
+								if(data.code==200){
+									alert("更新成功！");
+									location.reload("/m/personal"); 
+								}else{
+									alert(data.msg);
+								}
+			      			},"json");
+        			}
+        		</script>
+        		<div style="margin-top:1px;padding:12px;background: #FFFFFF;">
+        			<small style="font-size: 15px;width: 78%;margin-left:2% ;">
+        				<img src="/ykly/images/name.png" style="width: 15px;height: 15px;">
+        				<a id="user_name_a" href="javascript:void(0);" onclick="editvalue('user_name_div','user_name_a')"><font color="#008000">&nbsp;&nbsp;&nbsp;&nbsp;${user.name!}</font></a>
+        			</small><br>
+        			<div style="width: 100%;margin-top: 10px;display: none;" id="user_name_div">
+        				<input id="user_name" style="width: 73%;height: 25px;margin: 0;padding: 0;margin-left: 5%;" type="text" value="${user.name!}"/>
+        				<button style="width: 20%;height: 25px;margin: 0;padding: 0;" onclick="subeditvalue('user_name_div','user_name','user_name_a','${user.id!}');">修改</button>
+        			</div>
+        		</div>
+
+        		<div style="margin-top:1px;padding:12px;background: #FFFFFF;">
+        			<small style="font-size: 15px;width: 78%;margin-left:2% ;">
+        				<img src="/ykly/images/tel.png" style="width: 15px;height: 15px;">
+        				<a id="user_tel_a" href="javascript:void(0);" ><font color="#008000">&nbsp;&nbsp;&nbsp;&nbsp;${user.tel!}</font></a>
+        			</small><br>
+        			<div style="width: 100%;margin-top: 10px;display: none;" id="user_tel_div">
+        				<input id="user_tel" style="width: 73%;height: 25px;margin: 0;padding: 0;margin-left: 5%;" type="text" value="${user.tel!}"/>
+        				<button style="width: 20%;height: 25px;margin: 0;padding: 0;" onclick="subeditvalue('user_tel_div','user_tel','user_tel_a','${user.id!}');">修改</button>
+        			</div>
+        		</div>
+
+        		<div style="margin-top:1px;padding:12px;background: #FFFFFF;">
+        			<small style="font-size: 15px;width: 78%;margin-left:2% ;">
+        				<img src="/ykly/images/position.png" style="width: 15px;height: 15px;">
+        				<a id="user_address_a" href="javascript:void(0);" onclick="editvalue('user_address_div','user_address_a')"><font color="#008000">&nbsp;&nbsp;&nbsp;&nbsp;${user.address!}</font></a>
+        			</small><br>
+        			<div style="width: 100%;margin-top: 10px;display: none;" id="user_address_div">
+        				<input id="user_address" style="width: 73%;height: 25px;margin: 0;padding: 0;margin-left: 5%;" type="text" value="${user.address!}"/>
+        				<button style="width: 20%;height: 25px;margin: 0;padding: 0;" onclick="subeditvalue('user_address_div','user_address','user_address_a','${user.id!}');">修改</button>
+        			</div>
+        		</div>
+
+        	</div>
+
+		
+		<#if ltdatatag>
+
+		<div>
+        		<div style="margin-top:1px;padding:12px;background: #FFFFFF;text-align: center;">
+        			<small style="font-size: 15px;">量体信息</small>
+        		</div>
+        		<div style="background: #ffffff;margin-top:1px;">
+	       		
+	       	
+				
+				<div style="width: 50%;float: left;">
+	            <#list ltdata as x>
+	            
+	            <#if x_index%2=0>
+        		<div style="margin-top:1px;padding:12px;background: #FFFFFF;">
+        			<small style="font-size: 15px;width: 78%;margin-left:2% ;">
+        				&nbsp;&nbsp;&nbsp;&nbsp;${x.key!} :
+        				<font color="#008000">${x.value!}</font>
+        			</small>
+        		</div>
+				</#if>
+				</#list>
+				</div>
+				
+				<div style="width: 50%;float: left;">
+	            <#list ltdata as x>
+	            
+	            <#if x_index%2=1>
+        		<div style="margin-top:1px;padding:12px;background: #FFFFFF;">
+        			<small style="font-size: 15px;width: 78%;margin-left:2% ;">
+        				&nbsp;&nbsp;&nbsp;&nbsp;${x.key!} :
+        				<font color="#008000">${x.value!}</font>
+        			</small>
+        		</div>
+				</#if>
+				</#list>
+				</div>
+	       		
+				
+				
+				<div style="clear:both;"></div>
+				<div>
+        		
+	            
+        	</div>
+		</div></div></div>
+		<#else>
+			<div>
+        		<div style="margin-top:1px;padding:12px;background: #FFFFFF;text-align: center;">
+        			<small style="font-size: 15px;">暂无量体信息</small>
+        		</div>
+        		
+        		
+	            
+        	</div>
+		</div>
+		</#if>
+
+	 <#if datatag>
+        		
+		</div>
+				<div>
+        		<div style="margin-top:10px;padding:12px;background: #FFFFFF;text-align: center;">
+        			<small style="font-size: 15px;">3D尺寸图像</small>
+        		</div>
+	            <#list imgdata as x>
+        		<div class="divcss5" style=" margin-top:1px;padding:12px;background: #FFFFFF;border: 0">
+        			<img sytle="width:100%;height:100%%" src="${x.value!}">
+        		</div>
+				</#list>
+        	</div>
+				</div>
+        	</div>
+        
+		</#if>
+        	
+        	
+
+
+
+        <div style="text-align: center;margin-bottom: 12px;margin-top: 12px;">
+
+			<small style="font-size: 12px;">全国热线电话：400-000-6577</small><br>
+			<small style="font-size: 12px;margin-top: 10px;">鲁TCP备09077170号-3</small>
+
+		</div>
+
+
+    </body>
+</html>

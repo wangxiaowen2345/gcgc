@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+<div style="width:98%;text-align:right;margin-top:10px;margin-left:1%;">
+  <button class="btn btn-success" onclick="javascript:window.location.href='/admin/createmakeorder';">创建生产订单</button>
+  </div>
+
+
+    <div class="row-fluid" style="margin-left:1%;">
+		<div style="width:98%;text-align:left;margin-top:10px;margin-left:1%;">
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder';">全部</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=-200';">已退货</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=-100';">已重做</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=-101';">重做中</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=-102';">重做结束</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=-10 ';">已返修</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=-11 ';">维修中</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=-12 ';">维修结束</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=-1 ';">无效订单</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=0 ';">新订单</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=1 ';">通过审核</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=2 ';">已付款</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=10 ';">生产中</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=20 ';">已生产</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=30 ';">已发货</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=50 ';">已送达</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=60 ';">已收件</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=70 ';">一次返修收货</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=80 ';">重做收货</button>
+          <button class="btn btn-info" style="margin-right:10px;margin-top:10px;"
+           onclick="javascript:window.location.href='/admin/makeorder?type=100  ';">订单结束</button>
+      </div>
+
+        <div class="widget-box" style="width:98%;">
+          <div class="widget-title"> <span class="icon"><i class="icon-ok"></i></span>
+            <h5>${page.title!}</h5>
+          </div>
+          <div class="widget-content">
+            <div class="todo">
+              <ul>
+
+				
+				<#if admin_user.power!='kf'>
+                <#list contentPage.getList() as x>
+
+
+				<li class="clearfix">
+                  <a href="/admin/showmakeorder?id=${x.id!}">
+                    <div class="txt"> 生产单号:S${x.id!}&emsp;姓名:${x.name!}&emsp;电话:${x.tel!} &emsp;
+
+
+                      <#assign state=x.state>
+                      <#include "inc/makeorderliststate.html"/>
+
+                  </div></a>
+                  <div class="pull-right">
+						<#assign state=x.state>
+                      <#include "inc/makeorder.html"/>
+						
+                  </div>
+                </li>
+
+				</#list>
+				</#if>
+              </ul>
+            </div>
+
+<script type="text/javascript">
+	function invalid(id,num){
+		if(window.confirm('确认操作订单？')){
+               	$.post("/admin/makeorderinvalid", {id:id,num:num},
+   				function(data){
+     				if(data.code==200){
+     					alert("修改成功！");
+     					location.reload();
+     				}else{
+     					alert(data.msg);
+     				}
+   			},'json');
+                return true;
+             }else{
+                return false;
+            }
+      
+
+      }
+</script>
+
+          </div>
+
+
+    </div>
+    <#if admin_user.power!='kf'>
+    <div style="width:98%;text-align:center;margin-top:10px;margin-left:1%;">
+    	<#include "/common/_paginate.html" />
+			<@paginate currentPage=contentPage.pageNumber totalPage=contentPage.totalPage actionUrl="/admin/makeorder/" urlParas=urlParas/>
+	</div>
+	</#if>
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

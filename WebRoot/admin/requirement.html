@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/admin/" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+    <div style="width:98%;text-align:right;margin-top:10px;margin-left:1%;">
+		    <button class="btn btn-info" style="margin-right:10px;" onclick="javascript:window.location.href='showrequirement';">需求清单</button><button class="btn btn-success" onclick="javascript:window.location.href='examinerequirement';">审核需求</button>
+    </div>
+  	<div class="chat-message well" style="margin-left:1%;width:96%;">
+
+                <button type="button" onclick="search();" class="btn btn-success">搜索</button>
+                <span class="input-box">
+                <input type="text" id="msg-box" placeholder="请输入布料名称" name="search">
+    </span></div>
+
+
+  	<div class="widget-box" style="margin-left:1%;width:98%;">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>搜索列表</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>名称</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody id="t-body">
+
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+<script>
+  function search(){
+    var search = document.getElementById("msg-box").value;
+    var t = document.getElementById("t-body");
+    if(search == "")
+      t.innerHTML="";
+    else
+      $.post("searchrequirement",{search:search},
+        function(data){
+
+          var html = "";
+          for(var i=0;i<data.length;i++){
+            html+=("<tr class='odd gradeX' style='text-align: center;'>"+
+                "<td style='text-align: center;'>"+data[i].name+"</td>"+
+                "<td style='text-align: center;'><a href='javascript:subrequirement("+data[i].id+");'>提交需求</a></td>"+
+                "</tr>");
+          }
+          t.innerHTML = html;
+
+        },"json");
+  }
+
+  function subrequirement(id){
+    $.post("subrequirement",{id:id},
+      function(data){
+        if(data.code==200){
+          alert("需求提交成功！请至需求清单页面查看审核装态。");
+        }else{
+          alert("未知错误。");
+        }
+      },"json");
+  }
+</script>
+
+
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

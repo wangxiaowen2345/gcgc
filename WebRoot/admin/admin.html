@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+	<#include "inc/adminadd.html"/>
+
+
+
+  	<div class="widget-box" style="margin-left:1%;width:98%;">
+          <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
+            <h5>${page.title!}</h5>
+          </div>
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>用户名</th>
+                  <th>密码</th>
+                  <th>权限</th>
+                  <th>状态</th>
+							
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+              <#if admin_user.power=='su'>
+              
+              <#list userPage.getList() as x>
+                <tr class="odd gradeX" style="text-align: center;">
+                  <td style="text-align: center;">${x.username!}</td>
+                  <td style="text-align: center;">${x.password!}</td>
+                  <td style="text-align: center;"><#list power as y><#if x.power==y.powername>${y.nickname!}</#if></#list></td>
+                  <td style="text-align: center;">
+                  
+                  	<#if x.state=0>
+                  		<font color="red">禁用</font>
+                  	
+                  	<a href="javascript:void(0);" onclick="adminuserstate(#{x.id!},1);">点击变更为<font color="green">启用</font></a>
+                  	<#else>
+                  	<font color="green">启用</font>
+                  	<a href="javascript:void(0);" onclick="adminuserstate(#{x.id!},0);">点击变更为<font color="red">禁用</font></a>
+                  	</#if>
+                  </td>
+                  <td style="text-align: center;"><a href="/admin/editadmin?id=${x.id!}">编辑</a></td>
+                </tr>
+               </#list>
+               <#else>
+               <#list userPagelist as x>
+               <#if x.id==admin_user.id>
+                <tr class="odd gradeX" style="text-align: center;">
+                  <td style="text-align: center;">${x.username!}</td>
+                  <td style="text-align: center;">${x.password!}</td>
+                  <td style="text-align: center;"><#list power as y><#if x.power==y.powername>${y.nickname!}</#if></#list></td>
+                  <td style="text-align: center;">
+                  
+                  	<#if x.state=0>
+                  		<font color="red">禁用</font>
+                  	
+                  	<a href="javascript:void(0);" onclick="adminuserstate(#{x.id!},1);">点击变更为<font color="green">启用</font></a>
+                  	<#else>
+                  	<font color="green">启用</font>
+                  	<a href="javascript:void(0);" onclick="adminuserstate(#{x.id!},0);">点击变更为<font color="red">禁用</font></a>
+                  	</#if>
+                  </td>
+                  <td style="text-align: center;"><a href="/admin/editadmin?id=${x.id!}">编辑</a></td>
+                </tr>
+                </#if>
+               </#list>
+               </#if>
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+
+    <div style="width:98%;text-align:center;margin-top:10px;margin-left:1%;">
+    	<#include "/common/_paginate.html" />
+			<@paginate currentPage=userPage.pageNumber totalPage=userPage.totalPage actionUrl="/admin/admin/" />
+	</div>
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+
+<script>
+	function adminuserstate(id,state){
+		
+		var tag = "禁用";
+		if(state==1)
+			tag = "启用";
+		if(window.confirm('你确定要'+tag+'此账户吗？')){
+    
+			$.post("/admin/adminuserstate",
+					{id:id,state:state},
+					function(result){
+			   	if(result=="OK"){
+			   		alert("修改成功！");
+			   		location.reload();
+					}
+			   	});
+			
+      return true;
+    }else{
+      return false;
+    }
+		
+		
+		
+	}
+	
+	
+	
+</script>
+
+
+
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

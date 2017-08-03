@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>生产目录</title>
+		<style>
+			a{text-decoration:none}
+		</style>
+	</head>
+	<body style="font-family: '微软雅黑';">
+		<div style="width: 1200px;height: 200px;margin: 0px auto;padding: 0px;">
+			
+			<div>
+				<div style="width: 149px;height: 76px;background: url(/images/index_logo.png);float: left;"></div>
+				<div style="float: left;margin-left: 45px;border: #ccc solid 1px;width: 990px;height: 61px;padding:5px;margin-top: 5px;">
+					<p style="color: #ccc;padding: 0px;margin: 0px;">
+						注：<br>
+						此页面仅提供生产订单汇总查询功能；全部订单包含所有生产订单；
+						点击“待生产订单”可查看所有待生产订单，订单生产完毕后请自行通知优客良依更正订单状态；
+						点击“已生产订单”可查看所有生产过订单，其中“返修订单”和“退货订单”包含于此。				
+					</p>
+					
+					
+				</div>
+				
+				<div style="clear:both; "></div>
+				
+			</div>	
+			
+			<div style="width: 1200px;background: #fff;height: 30px;border-top:#ccc dashed 2px;padding-left: 20px;padding-top:10px;margin-top: 20px;">
+				<div>
+					<span style="color: #999;">请选择要查看的类别:</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="/fc?type=0" style="color: #555;">全部订单</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="/fc?type=1" style="color: #555;">待生产订单</a>&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="/fc?type=2" style="color: #555;">已生产订单</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				</div>
+				
+				<div style="width:1175px;border:#ccc solid 1px;margin-top: 15px;padding-bottom:10px;">
+					
+					
+					<#list page.getList() as x>
+					
+					<div style="padding: 10px;border-bottom:#ccc dashed 1px ;">
+						<a href='/admin/showmake?id=${x.id!}'><span style="color: #555;">S${x.id!}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<font color="blue">
+						
+						
+						<#if x.state=-200>
+						已退货
+						</#if>
+						<#if x.state=-100>
+						已重做
+						</#if>
+						<#if x.state=-101>
+						重做中
+						</#if>
+						<#if x.state=-102>
+						重做结束
+						</#if>
+						<#if x.state=-10>
+						已返修
+						</#if>
+						<#if x.state=-11>
+						维修中
+						</#if>
+						<#if x.state=-12>
+						维修结束
+						</#if>
+						<#if x.state=-1>
+						无效订单
+						</#if>
+						<#if x.state=0>
+						新订单
+						</#if>
+						<#if x.state=1>
+						通过审核
+						</#if>
+						<#if x.state=2>
+						已付款
+						</#if>
+						<#if x.state=10>
+						生产中
+						</#if>
+						<#if x.state=20>
+						已生产
+						</#if>
+						<#if x.state=30>
+						已发货
+						</#if>
+						<#if x.state=50>
+						已送达
+						</#if>
+						<#if x.state=60>
+						客户取货或已发送给顾客
+						</#if>
+						<#if x.state=70>
+						一次返修收货
+						</#if>
+						<#if x.state=80>
+						重做收货
+						</#if>
+						<#if x.state=100> 
+						订单结束
+						</#if>
+						
+						
+						
+						
+						
+						
+						
+						
+						</font><span></a>										
+					</div>
+					
+					</#list>
+					
+				
+				
+				</div>
+				<div style="text-align: center;margin-top:5px;">
+					<#include "/common/_paginate.html" />
+				<@paginate currentPage=page.pageNumber totalPage=page.totalPage actionUrl="/fc/" urlParas="?type=${type!}"/>
+				</div>
+			</div>
+			
+		</div>
+		
+	</body>
+</html>

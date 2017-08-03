@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>${r.title!}-${K.WebSite_Name!}</title>
+<meta name="keywords" content="拍卖惠,收藏天下拍卖惠,收藏品拍卖,书画拍卖,0元拍卖" />
+<meta name="description" content="收藏天下拍卖惠频道为您提供各种收藏品拍卖服务，收藏品0元起拍，正品底价，让您低价体会到收藏品网上拍卖的乐趣，非常值得参与体验的收藏品拍卖活动。" />
+
+<link rel="shortcut icon" href="http://www.96567.com/favicon.ico" />
+<!-- <link href="/index/css/base.css" rel="stylesheet" type="text/css"> -->
+<link href="/index/css/home_header.css" rel="stylesheet" type="text/css">
+<link href="/index/css/home_login.css" rel="stylesheet" type="text/css">
+<link href="/index/css/font-awesome.min.css" rel="stylesheet" />
+
+<script src="/index/js/jquery.js"></script>
+<script src="/index/js/common.js" charset="utf-8"></script>
+<script src="/index/js/jquery.ui.js"></script>
+<script src="/index/js/jquery.validation.min.js"></script>
+<script src="/index/js/jquery.masonry.js"></script>
+<script src="/index/js/dialog.js" id="dialog_js" charset="utf-8"></script>
+
+<link rel="stylesheet" href="/index/css/basis.css">
+<link rel="stylesheet" href="/index/css/base1.css">
+<link rel="stylesheet" href="/index/css/auction_pm.css">
+
+<script src="/index/js/ring.js"></script>
+
+
+<link href="/index/css/auction.css" rel="stylesheet" type="text/css">
+<script src="/index/js/lepai_clock.js" type="text/javascript" ></script>
+<script src="/index/js/koala.min.1.5.js" type="text/javascript" ></script>
+
+
+</head>
+<body>
+
+
+<#include "../inc/header.html"/>
+
+
+<div class="auction-bread wrapper">
+ <i class="iconfont-house"></i>
+ <span><a href="http://www.96567.com/shop">首页</a><em>&gt;</em></span>
+ <span><a href="http://www.96567.com/lepai">拍卖惠</a><em>&gt;</em></span>
+ <span><a href="http://pm.96567.com/index.php?act=index&amp;op=theme&amp;tid=216">玉林坊翡翠</a><em>&gt;</em></span>
+ <span>A货翡翠九龙至尊大挂件手玩件</span>
+</div>
+
+<div class="wrapper p-b">
+
+ <div class="auction-particulars">
+   <div class="particulars-up">
+     <div class="shopleft">
+      <div id="preview">
+
+
+        <div class="jqzoom" id="spec-n1">
+            <img height="350" src="http://www.96567.com/data/upload/lepai/05278171518201597.jpg" width="350" bigsrc="http://www.96567.com/data/upload/lepai/05278171518201597.jpg">
+        </div>
+
+
+        <div id="spec-n5">
+
+
+            <div class="control" id="spec-left">
+                <img src="http://pm.96567.com/templates/default/images/left.gif">
+            </div>
+
+
+            <div id="spec-list">
+                <ul class="list-h" style="width: 248px; overflow: hidden;">
+                                                <li><a href="javascript:void(0)">
+                            <img src="http://www.96567.com/data/upload/lepai/05278171518201597.jpg" alt="http://www.96567.comA货翡翠九龙至尊大挂件手玩件" jqimg="http://www.96567.com/data/upload/lepai/05278171518201597.jpg" onload="DrawImage(this,50,50);" width="50" height="50"></a>
+                    </li>
+                                    <li><a href="javascript:void(0)">
+                            <img src="http://www.96567.com/data/upload/lepai/05278171574365260.jpg" alt="http://www.96567.comA货翡翠九龙至尊大挂件手玩件" jqimg="http://www.96567.com/data/upload/lepai/05278171574365260.jpg" onload="DrawImage(this,50,50);" width="50" height="50"></a>
+                    </li>
+                                    <li><a href="javascript:void(0)">
+                            <img src="http://www.96567.com/data/upload/lepai/05278171622185772.jpg" alt="http://www.96567.comA货翡翠九龙至尊大挂件手玩件" jqimg="http://www.96567.com/data/upload/lepai/05278171622185772.jpg" onload="DrawImage(this,50,50);" width="50" height="50"></a>
+                    </li>
+                                    <li><a href="javascript:void(0)">
+                            <img src="http://www.96567.com/data/upload/lepai/05278171745058887.jpg" alt="http://www.96567.comA货翡翠九龙至尊大挂件手玩件" jqimg="http://www.96567.com/data/upload/lepai/05278171745058887.jpg" onload="DrawImage(this,50,50);" width="50" height="50"></a>
+                    </li>
+                                            </ul>
+            </div>
+
+
+            <div class="control" id="spec-right">
+                <img src="http://pm.96567.com/templates/default/images/right.gif">
+            </div>
+
+
+        </div>
+      </div>
+      <script src="http://pm.96567.com/templates/default/js/lib_20110119zzjs_net.js"></script>
+      <script src="http://pm.96567.com/templates/default/js/Magnifier-min.js"></script>
+      <script>
+          $(function(){
+
+              $("#spec-list").jdMarquee({
+                  deriction:"left",
+                  width:313,
+                  height:56,
+                  step:2,
+                  speed:4,
+                  delay:10,
+                  control:true,
+                  _front:"#spec-right",
+                  _back:"#spec-left"
+              });
+              $("#spec-list img").bind("mouseover",function(){
+                  var src=$(this).attr("src");
+                  var srcs=$(this).attr("jqimg");
+                  $("#spec-n1 img").eq(0).attr({
+                      src:src.replace("\/n5\/","\/n1\/"),
+                      bigsrc:srcs.replace("\/n5\/","\/n0\/")
+                  });
+                  $(this).css({
+                      "border":"2px solid #ff6600",
+                      "padding":"1px"
+                  });
+              }).bind("mouseout",function(){
+                  $(this).css({
+                      "border":"1px solid #ccc",
+                      "padding":"2px"
+                  });
+              });
+          });
+      </script>
+     </div>
+
+
+
+
+
+
+
+     <div class="wordright">
+       <h2>A货翡翠九龙至尊大挂件手玩件</h2>
+       <!-- 三种状态 state1 state2 state3 -->
+
+
+
+
+
+
+
+
+
+<!-- 正在进行 -->
+    <div class="time-state state2up">
+
+        <i class="iconcolor-state">正在进行</i>
+        <p><span class="leftTime" count_down="15305" timestatus="2">距 结 束 <span>4</span>时<span>15</span>分<span>5</span>秒</span></p>
+
+    </div>
+
+
+    <div class="rmb-state state2down">
+
+<div class="pos-relation">
+           <a class="icon-wechat1" href="">
+            扫码咨询
+            <img src="http://pm.96567.com/templates/default/images/secretary2.jpg" alt="">
+           </a>
+           <a class="icon-relation" href="javascript:void(0);" onclick="NTKF.im_openInPageChat('sc_1000_1461061274365')" id="rtoolbar_cart">拍卖小秘书</a>
+         </div>
+
+         <p class="present-price">当前价<strong>￥2600</strong></p>
+
+
+  <div class="payment-state">
+   <p>缴纳保证金</p>
+   <ul>
+    <li onclick="margin_type(1);" id="margin_xianjin" class="auction_center_left_top_right2_ul_active"><a class="now">10元现金</a></li>
+    <li onclick="margin_type(2);" id="margin_scb"><a>1000积分</a></li>
+
+   </ul>
+ </div>
+
+         
+     <a class="btn-apply" id="bid" onclick="return checkform()">
+       <i class="icon-bighammer"></i>
+       报名缴纳保证金     </a>
+</div>
+
+
+
+
+
+
+
+       
+
+
+     <input name="margintype" id="margintype" type="hidden" value="1">
+
+
+
+      
+      <!-- e -->
+       <div class="comprehensive-text">
+         <ul>
+           <li>
+             <p style="width:500px;">送拍机构：<strong>玉林坊翡翠阁</strong></p>
+             <p style="width:200px;"><strong>4</strong>人报名</p>
+             <p style="width:80px;"><strong>135</strong>人围观</p>
+           </li>
+           <li>
+             <p style="width:200px;">起拍价：￥1600.00</p>
+             <p style="width:140px;">加价幅度：￥200.00</p>
+           </li>
+           <li>
+             <p style="width:200px;">保留价：有</p>
+             <p style="width:240px;">保证金：¥10.00/1000积分</p>
+           </li>
+         </ul>
+       </div>
+      <!-- a -->
+
+     </div>
+   </div>
+
+
+
+<!-- 委托出价 -->
+
+<div class="auction_center_left_top_right_entrustc bid-hide hide" style="top: 220px; display: none;">
+    <img class="auction_center_left_top_right_entrustc_img" src="http://www.96567.com/lepai/templates/default/images/btn.jpg" alt="">
+    <div class="auction_center_left_top_right_entrust">
+
+
+        <div class="auction_center_left_top_right_entrust_p">
+                    <span class="revised">我的出价</span>
+            <span class="client_prices" contenteditable="true" id="client_prices">0</span>
+            <button onclick="client(0);" id="clients">立即委托</button>
+            <i><a>?</a>此处填写您可接受的本拍品的最高价格；</i>
+                </div>
+
+
+        <abbr>
+            <strong>什么是委托出价：</strong>
+            <p>拍卖惠预展时您通过报名之后就可以选择委托出价，输入自己可接受的最高出价金额，由系统代理出价。</p>
+            <p>1、当您设置未开始产品自动出价后，系统将在竞价开始时按 起始价+最低出价 自动为您做第一次出价；如其它客户的跟价超过您时，系统将再次以 当前价+最低出价 继续为您出价；如果 当前价+最低出价 高于您设置的委托出价，则停止拍卖出价；</p>
+            <p>2、当您设置已开始产品自动出价后，系统将以 当前价+最低出价 自动为您做第一次出价；如其它客户的跟价超过您时，系统将再次以 当前价+最低出价 继续为您出价；如果 当前价+最低出价 高于您设置的委托出价，则停止拍卖出价；</p>
+            <p><span>注：如果您的委托出价已停止但未竞价成功，我们将及时短信告知，您可以再次手动进行出价；</span></p>
+        </abbr>
+    </div>
+</div>
+
+
+
+
+
+   <div class="auction-particulars-content">
+        <div class="auction_center_left_down_process" style="margin-bottom: 20px">
+                <img src="http://www.96567.com/lepai/templates/default/images/anction_main_process.jpg" alt="竞拍流程">
+                <p><img src="http://www.96567.com/lepai/templates/default/images/lepai_notice.jpg" alt="竞拍流程"></p>
+            </div>
+        <div class="wjsh_box"><div style="text-align:center;">
+	<p style="text-align:center;white-space:normal;">
+		<strong><span style="font-size:24px;">本店所售商品均为A货翡翠，带权威证书，一物一证，支持复检！请放心购买</span></strong> 
+	</p>
+	<p style="text-align:center;white-space:normal;">
+		尺寸76.1*53.6*26.1mm重量144.001g
+	</p>
+<span style="text-align:center;white-space:normal;"></span><img src="http://images.96567.com/upload/pm/editor/20160921/05278173477923520.jpg" alt=""><img src="http://images.96567.com/upload/pm/editor/20160921/05278173585355976.jpg" alt=""><img src="http://images.96567.com/upload/pm/editor/20160921/05278173664842916.jpg" alt=""><img src="http://images.96567.com/upload/pm/editor/20160921/05278173749111538.jpg" alt=""><img src="http://images.96567.com/upload/pm/editor/20160921/05278173841986819.jpg" alt=""><img src="http://images.96567.com/upload/pm/editor/20160921/05278174281572592.jpg" alt=""><br>
+</div></div>
+ 
+   </div>
+
+
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+ <div class="auction-side">
+
+
+  <div class="auction_center_right_top">
+    <strong>出价记录<span>（5）</span></strong>
+    <span id="chujiajile"><div class="auction_center_right_top_jilu"><p><span>参与人</span><span>价格</span><span>时间</span></p><p><span><i title="该用户目前处于领先" style="background: #e43a3d;">先</i>王艳***</span><span>￥2600</span><span>10/13 20:48:07</span></p><p><span>翠之***</span><span>￥2400</span><span>10/13 20:08:50</span></p><p><span>王艳***</span><span>￥2200</span><span>10/12 22:12:45</span></p><p><span>鸿运***</span><span>￥2000</span><span>10/12 10:10:50</span></p></div><p class="auction_center_right_top_p" style="width: 200px;"><a href="javascript:void(0);">&lt;</a><a href="javascript:chujiajilu(1);" style="color: #FFF;border: 1px solid #d00000;background-color: #d00000;">1</a><a href="javascript:chujiajilu(2);">2</a><a href="javascript:chujiajilu(2);">&gt;</a></p></span>
+  </div>
+
+
+
+  <div class="auction_center_right_down">
+    <div class="auction_center_right_down_title">
+     <p>热门拍品</p>
+    </div>
+    <ul>
+
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4585">
+       <img src="http://www.96567.com/data/upload/lepai/05278171518201597.jpg" width="89" height="89" alt="A货翡翠九龙至尊大挂件手玩件">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠九龙至尊大挂件手玩件</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥2600</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">5次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4523">
+       <img src="http://www.96567.com/data/upload/lepai/05277753096077666.jpg" width="89" height="89" alt="A货翡翠辣绿马鞍扳指">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠辣绿马鞍扳指</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥900</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">4次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4482">
+       <img src="http://www.96567.com/data/upload/lepai/05277275692998131.jpg" width="89" height="89" alt="A货翡翠豆绿圆珠翡翠项链">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠豆绿圆珠翡翠项链</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥2000</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">4次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4484">
+       <img src="http://www.96567.com/data/upload/lepai/05277288357288810.jpg" width="89" height="89" alt="A货翡翠仿古雕路路通手链">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠仿古雕路路通手链</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥900</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">4次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4440">
+       <img src="http://www.96567.com/data/upload/lepai/05276824013689020.jpg" width="89" height="89" alt="A货翡翠马到成功挂件">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠马到成功挂件</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥500</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">4次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4650">
+       <img src="http://www.96567.com/data/upload/lepai/05278723647162934.jpg" width="89" height="89" alt="A货翡翠龙凤牌挂件一对">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠龙凤牌挂件一对</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥1000</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">4次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4518">
+       <img src="http://www.96567.com/data/upload/lepai/05277740590179411.jpg" width="89" height="89" alt="A货翡翠好种水绿度母挂件">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠好种水绿度母挂件</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥2400</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">4次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4527">
+       <img src="http://www.96567.com/data/upload/lepai/05277765720329644.jpg" width="89" height="89" alt="A货翡翠双彩喜上眉梢挂件">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠双彩喜上眉梢挂件</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥800</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">3次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4589">
+       <img src="http://www.96567.com/data/upload/lepai/05278191173445624.jpg" width="89" height="89" alt="A货翡翠观音挂件">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠观音挂件</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥2100</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">3次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+
+    <li>
+      <a target="_blank" href="http://pm.96567.com/index.php?act=index&amp;op=auction&amp;id=4554">
+       <img src="http://www.96567.com/data/upload/lepai/05278120341433885.jpg" width="89" height="89" alt="A货翡翠满绿圆珠项链">
+       <p class="auction_center_right_down_p1" style="width:160px;overflow:hidden;white-space:nowrap;">A货翡翠满绿圆珠项链</p>
+       <p class="auction_center_right_down_p2">当前价：<span>￥900</span></p>
+       <p class="auction_center_right_down_p3">
+                        <img src="http://www.96567.com/lepai/templates/default/images/anction_main1_left_btn.jpg" alt="">3次出价        <!-- <img src="images/anction_main1_left_btn.jpg" alt="">3次出价 -->
+
+        </p>
+      </a>
+    </li>
+
+
+    </ul>
+  </div>
+
+
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+<#include "../inc/footer.html"/>
+
+
+
+</body>
+</html></body>
+</html>

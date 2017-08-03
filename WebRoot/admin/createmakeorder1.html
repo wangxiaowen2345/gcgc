@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+      <#if otype=="no vip">
+
+
+
+      <#elseif otype=="vip no data">
+      	
+      
+      <div style="width:500px;height:50px;margin-top:50px;margin-left:20px;">
+        会员没有量体数据，是否马上量体?点击是跳转量体，点击否返回上一步。&nbsp;&nbsp;&nbsp;<button style="margin-right:20px;" onclick="location.href='/admin/ly2?id=${userid!}&ctype=${ctype!}&from=createmakeorder';">是</button><button >否</button>
+      </div>
+      <#else>
+      	<script>
+      		${js!}
+      	</script>
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>${page.title!}</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="createmakeorder2" method="post" class="form-horizontal" id="form">
+           <br>
+            <input name='userid' id="userid" value='${userid!}' type='hidden'>
+            <input name='yx' id="yx" value='${yx!}' type='hidden'>
+            <input name='ltid' id="ltid" value='${ltid!}' type='hidden'>
+            <div class="control-group">
+              <label class="control-label">收货类型 :</label>
+              <div class="controls">
+                <select type="text" class="span6" name="dao.shtype">
+                  <option>门店取货</option>
+                  <option>快递上门</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">联系人 :</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.name" value="${user.name!}">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">性别 :</label>
+              <div class="controls">
+                <select type="text" class="span6" name="dao.sex">
+                 <#if user.sex =='0'>
+                  <option value="1">男</option>
+                  <option value="0" selected = "selected">女</option>
+                  <#else>
+                  <option value="1" selected = "selected">男</option>
+                  <option value="0" >女</option>
+                  </#if>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">年龄 :</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.age" value="${user.age!}">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">身高:</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.cm" value="${user.cm!}">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">体重 :</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.kg" value="${user.kg!}">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">电话 :</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.tel" value="${user.tel!}">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">取货门店 :</label>
+              <div class="controls">
+                <select type="text" class="span6" name="dao.shop">
+
+
+                  <#list shoplist as x>
+                  <option value="${x.id!}">${x.name!}</option>
+                  </#list>
+
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">收货地址 :</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.address" value="${user.address!}">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">商品名称 :</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${yxdata.name!}</p>
+              </div>
+            </div>
+            <script>
+            	var ccc = new Array();
+            </script>
+            <#assign num=0>
+            <#list mlist as x>
+            <div class="control-group">
+              <label class="control-label">${x.name!} :</label>
+              <div class="controls">
+								<script>
+									ccc[${x_index!}] = new Array();
+								</script>
+                
+                <input type="hidden" id="key_${x_index!}" value="${x.id!}" name="key_${x_index!}">
+                <input type="hidden" id="name_${x_index!}" value="${x.name!}" name="name_${x_index!}">
+                <input type="hidden" id="value_${x_index!}" value="0" name="value_${x_index!}">
+
+								
+                
+                <select type="text" class="span6" onchange="ck1(${x_index!},this.value);" id="select_${x_index!}">
+                	<option value="0">请选择</option>	
+                	
+                		<script>
+                		ccc[${x_index!}][0] = new Array();
+                		ccc[${x_index!}][0][0] = '0';
+                		ccc[${x_index!}][0][1] = 0;
+                		ccc[${x_index!}][0][2] = 0;
+                	</script>
+                	<#list x.list as y>
+                	
+                	<option value="${y.id!}">${y.name!}</option>		
+               		
+               		<script>
+                		ccc[${x_index!}][${y.id!}] = new Array();
+                		ccc[${x_index!}][${y.id!}][0] = '${y.name!}';
+                		ccc[${x_index!}][${y.id!}][1] = '${y.prent!}';
+                		ccc[${x_index!}][${y.id!}][2] = '${y.price!}';
+                	</script>
+                	</#list>
+                </select>
+                
+             
+              </div>
+            </div>
+              <#assign  num=x_index+1>
+              </#list>
+            <input type="hidden" name="num" value="${num!}">
+						<script>
+							var numsize = ${num!};
+							
+						</script>
+
+            <#assign onum=0>
+            <#list orderpersondata as x>
+
+            <div class="control-group">
+              <label class="control-label">${x.data!}:</label>
+              <div class="controls">
+                <select class="span6" name="opk_${x_index!}">
+                  <#list x.list as y>
+                    <option>${y!}</option>
+                  </#list>
+                </select>
+              </div>
+            </div>
+            <#assign  onum=x_index+1>
+
+            </#list>
+
+            <input type="hidden" name="orderpersondatanum" value="${onum!}">
+
+            <div class="control-group">
+              <label class="control-label">订单备注 :</label>
+              <div class="controls">
+
+                <textarea class="span6" name="dao.remark" id="remark"></textarea>
+              </div>
+            </div>
+						
+						
+						<#if power!="qjd">
+						<div class="control-group">
+              <label class="control-label">是否需要价格审核 :</label>
+              <div class="controls">
+
+                <select class="span6" name="dao.state"/>
+                	<option value="1">否</option>
+                	<option value="0">是</option>
+                </select>
+                <font color="red">*审核原因请在备注填写。</font>
+              </div>
+            </div>
+            <#else>
+            	<input value="1" name="dao.state" type="hidden">
+						</#if>
+            <div class="control-group">
+              <label class="control-label">订单总价 :</label>
+              <div class="controls">
+
+                <input type="text" class="span6" name="dao.price" id="price" <#if power!="qjd">readonly="true"</#if>/>
+              </div>
+            </div>
+
+
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="sub();">生成订单</button>
+            </div>
+
+            <script language="javascript">
+            // 对Date的扩展，将 Date 转化为指定格式的String
+			// 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 
+			// 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 
+			// 例子： 
+			// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
+			// (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
+			Date.prototype.Format = function (fmt) { //author: meizz 
+			    var o = {
+			        "M+": this.getMonth() + 1, //月份 
+			        "d+": this.getDate(), //日 
+			        "h+": this.getHours(), //小时 
+			        "m+": this.getMinutes(), //分 
+			        "s+": this.getSeconds(), //秒 
+			        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+			        "S": this.getMilliseconds() //毫秒 
+			    };
+			    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+			    for (var k in o)
+			    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+			    return fmt;
+			}
+            
+              var isprice = ${yxdata.isprice};
+              var num = ${num!};
+              function sub(){
+              	
+             
+              	
+//            	var reg = new RegExp("^[0-9]*$");
+//            	var reg1 = new RegExp("/^\d+(\.\d+)?$/");
+//     	
+//						    if(!reg.test(p) || !reg1.test(p)){
+//						        alert("请输入数字!");
+//						        return;
+//						    }
+						    
+              	
+              
+
+                for(var i = 0;i<num;i++){
+                  var key = document.getElementById("key_"+i).value;
+                  var name = document.getElementById("name_"+i).value;
+                  var value = document.getElementById("value_"+i).value;
+                  if(value=="0"){
+                    alert("请选择"+name);
+                    return;
+                  }
+                }
+
+                //alert("a");
+                
+                var nowdate = new Date().Format("yyyy-MM-dd hh:mm:ss");
+              	var p = document.getElementById("price").value;
+              	$("#remark").val(nowdate+"  "+"${admin_user.name!}:"+"  "+$("#remark").val().replace(/\r|\n/ig,"。")+"</br/>");
+
+                document.getElementById("form").submit();
+              }
+
+              function ck(a,b,c,d,e){
+                document.getElementById("value_"+c).value = a;
+                if(isprice==d)
+                  document.getElementById("price").value = e;
+              }
+              
+              function ck1(a,b){
+//            	alert(a);
+//            	alert(b);
+//            	alert(ccc[a][b*1][0]);
+//            	alert(ccc[a][b*1][1]);
+//            	alert(ccc[a][b*1][2]);
+	              document.getElementById("value_"+a).value = b;
+	              
+	              var price = 0;
+	              
+	              for(var i=0;i<numsize;i++){
+	              	var c = document.getElementById("select_"+i).value;
+	              	price += ccc[i][c*1][2]*1;
+	              }
+	              document.getElementById("price").value = price;
+	              
+	             // if(isprice==ccc[a][b*1][1])
+	             //   document.getElementById("price").value = ccc[a][b*1][2];
+              }
+
+            </script>
+          </form>
+        </div>
+          </#if>
+      </div>
+
+
+
+
+  </div>
+
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

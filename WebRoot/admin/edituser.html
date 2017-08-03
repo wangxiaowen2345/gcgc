@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+<#include "inc/useradd.html"/>
+    
+   
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>编辑用户</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="doedituser" method="post" class="form-horizontal" id="form">
+          <br>
+          <input type="hidden" value="${r.id!}" name="dao.id">
+            <div class="control-group">
+              <label class="control-label">用户名 :</label>
+              <div class="controls">
+                <input type="text" class="span6" id="username" name="dao.username" value="${r.username!}" readOnly="true">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">密码 :</label>
+              <div class="controls">
+                <input type="password" class="span6" name="dao.password" id="password" placeholder="不填写则不修改密码">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">姓名:</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.name" value="${r.name!}">
+              </div>
+            </div>
+            
+            
+            <div class="control-group">
+              <label class="control-label">性别:</label>
+              <div class="controls">
+                
+               
+                <select type="text" class="span6" name="dao.sex">
+                 <#if r.sex =='0'>
+                  <option value="1">男</option>
+                  <option value="0" selected = "selected">女</option>
+                  <#else>
+                  <option value="1" selected = "selected">男</option>
+                  <option value="0" >女</option>
+                  </#if>
+                </select>
+                 
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">年龄:</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.age" value="${r.age!}">
+              </div>
+            </div>
+            
+            <div class="control-group">
+              <label class="control-label">身高:</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.cm" value="${r.cm!}">
+              </div>
+            </div>
+           
+            <div class="control-group">
+              <label class="control-label">体重:</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.kg" value="${r.kg!}">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">电话号码:</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.tel" value="${r.tel!}">
+              </div>
+            </div> 
+            <div class="control-group">
+              <label class="control-label">通讯地址:</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.address" value="${r.address!}">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">添加时间:</label>
+              <div class="controls">
+                <input type="text" class="span6" value="${r.time!}" readOnly="true">
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="sub();">保存</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <script language="javascript">
+      	function sub(){
+  			
+      		document.getElementById("form").submit();
+      			
+      	}
+      </script>
+
+    
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>
+

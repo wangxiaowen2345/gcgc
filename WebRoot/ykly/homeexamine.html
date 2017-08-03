@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>预约上门量体</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="/ykly/js/jquery.min.js"></script>
+		<link rel="stylesheet" href="/ykly/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="/ykly/css/mui.picker.min.css" />
+		<style>
+						
+			/**
+			 * Checkbox Five
+			 */
+			.checkboxFive {
+				width: 100%;
+				margin: 10px 10px;
+				position: relative;
+			}
+			
+			
+			/**
+			 * Create the box for the checkbox
+			 */
+			.checkboxFive label {
+				cursor: pointer;
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				top: 0;
+			  	left: 0;
+				background: #eee;
+				border:1px solid #ddd;
+			}
+			
+			
+			/**
+			 * Display the tick inside the checkbox
+			 */
+			.checkboxFive label:after {
+				opacity: 0.2;
+				content: '';
+				position: absolute;
+				width: 9px;
+				height: 5px;
+				background: transparent;
+				top: 4px;
+				left: 3px;
+				border: 3px solid #050505;
+				border-top: none;
+				border-right: none;
+			 
+				-webkit-transform: rotate(-45deg);
+				-moz-transform: rotate(-45deg);
+				-o-transform: rotate(-45deg);
+				-ms-transform: rotate(-45deg);
+				transform: rotate(-45deg);
+			}
+			
+			
+			/**
+			 * Create the hover event of the tick
+			 */
+			.checkboxFive label:hover::after {
+				opacity: 0.5;
+			}
+			 
+			/**
+			 * Create the checkbox state for the tick
+			 */
+			.checkboxFive input[type=checkbox]:checked + label:after {
+				opacity: 1;
+			}
+						
+						
+			
+		</style>
+	</head>
+	<body style="background: #263137;text-align: center;">
+		<div style="margin-top: 30px;">
+			<img src="/ykly/images/login1.png" width="68" height="68">
+		</div>
+		<div style="margin-top: 20px;">
+			<small style="color: #FFFFFF;font-size: 18px;">填写预约信息</small>
+			
+		</div>
+		<form action="/m/dohomeexamine" method="post" id="form">
+		<div style="width: 90%;margin-left: 5%;background: #ffffff;border-radius:10px;padding: 15px 1%;">
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;">
+				<input id="name" name="dao.name" style="background: url(/ykly/images/name20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px; 
+					width: 100%;height: 20px;font-size: 15px;" placeholder="请填写姓名，预约专员为您量体" type="text" value="${user.name!}"/>
+			</div>
+
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;margin-top: 15px;">
+				<input id="phone" name="dao.tel" style="background: url(/ykly/images/phone20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;" placeholder="请输入电话，享受专人服务" type="text" value="${user.tel!}"/>
+			</div>
+
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;margin-top: 15px;">
+				<input name="dao.wantsex" style="background: url(/ykly/images/want20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;" readonly="readonly"
+					placeholder="期望量体师的性别" type="text" id="showUserPicker"/>
+			</div>
+
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;margin-top: 15px;">
+				<input name="dao.address" style="background: url(/ykly/images/position20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;" readonly="readonly"
+					placeholder="请选择您所在地区" type="text" id="showCityPicker3"/>
+					<input type="hidden" value="" name="dao.positionid" id="cityid">
+			</div>
+			<div style="width: 95%;background-color: #FFFFFF;border-bottom: 1px solid #E8E8E8;padding: 0px 10px;margin-top: 15px;">
+				<input name="dao.emtime" style="background: url(/ykly/images/time20.png) no-repeat;
+					border:0px;padding: 2px 2px 0px 30px;
+					width: 100%;height: 20px;font-size: 15px;" readonly="readonly"
+					data-options='{}' placeholder="请选择您的时间，我们的时间您来掌控" type="text" id="timeint"/>
+					
+			</div>
+			<div style="width: 95%;background-color: #FFFFFF;padding: 0px 10px;margin-top: 15px;margin-bottom: -10px;">
+					<div style="height: 21px;">
+						<input style="background: url(/ykly/images/bj20.png) no-repeat;
+							border:0px;padding: 2px 2px 0px 30px;
+							width: 100%;height: 20px;font-size: 15px;" readonly="readonly"
+							 placeholder="请选择您需要的品类" type="text" />
+					</div>
+					
+					<div style="text-align: left;float: left;width: 50%;">
+						<section>
+							
+						   	<div class="checkboxFive">
+						  		<input type="checkbox" value="西装系列" id="checkboxFiveInput0" name="pl" />
+							  	<label for="checkboxFiveInput0"></label>
+							  	<span style="margin-left: 15px;line-height: 20px; height:20px;font-size: 15px;">西装系列</span>
+						  	</div>
+						  	
+						  	<div class="checkboxFive">
+						  		<input type="checkbox" value="衬衫系列" id="checkboxFiveInput1" name="pl" />
+							  	<label for="checkboxFiveInput1"></label>
+							  	<span style="margin-left: 15px;line-height: 20px; height:20px;font-size: 15px;">衬衫系列</span>
+						  	</div>
+						  	
+						  	<div class="checkboxFive">
+						  		<input type="checkbox" value="牛仔裤系列" id="checkboxFiveInput2" name="pl" />
+							  	<label for="checkboxFiveInput2"></label>
+							  	<span style="margin-left: 15px;line-height: 20px; height:20px;font-size: 15px;">牛仔裤系列</span>
+						  	</div>
+						  	
+						  	<div class="checkboxFive">
+						  		<input type="checkbox" value="旗袍系列" id="checkboxFiveInput3" name="pl" />
+							  	<label for="checkboxFiveInput3"></label>
+							  	<span style="margin-left: 15px;line-height: 20px; height:20px;font-size: 15px;">旗袍系列</span>
+						  	</div>
+						  
+						</section>
+					</div>
+					<div style="text-align: left;float: left;width: 50%;">
+						<section >
+							
+						   	<div class="checkboxFive">
+						  		<input type="checkbox" value="T恤系列" id="checkboxFiveInput4" name="pl" />
+							  	<label for="checkboxFiveInput4"></label>
+							  	<span style="margin-left: 15px;line-height: 20px; height:20px;font-size: 15px;">T恤系列</span>
+						  	</div>
+						  	
+						  	<div class="checkboxFive">
+						  		<input type="checkbox" value="夹克系列" id="checkboxFiveInput5" name="pl" />
+							  	<label for="checkboxFiveInput5"></label>
+							  	<span style="margin-left: 15px;line-height: 20px; height:20px;font-size: 15px;">夹克系列</span>
+						  	</div>
+						  	
+						  	<div class="checkboxFive">
+						  		<input type="checkbox" value="休闲裤系列" id="checkboxFiveInput6" name="pl" />
+							  	<label for="checkboxFiveInput6"></label>
+							  	<span style="margin-left: 15px;line-height: 20px; height:20px;font-size: 15px;">休闲裤系列</span>
+						  	</div>
+						  	
+						  	<div class="checkboxFive">
+						  		<input type="checkbox" value="外套系列" id="checkboxFiveInput7" name="pl" />
+							  	<label for="checkboxFiveInput7"></label>
+							  	<span style="margin-left: 15px;line-height: 20px; height:20px;font-size: 15px;">外套系列</span>
+						  	</div>
+						  
+						</section>
+						
+						
+					</div>
+				<div style="clear:both;"></div> 
+			</div>
+			</div>
+			<input type="hidden" value="" id="remark" name="dao.remark" /> 
+			</form>
+		</div>
+
+
+		<div onclick="sub();" style="margin-left:20%;margin-top:40px;width: 60%;height: 40px;border:1px solid #FFFFFF;border-radius: 10px;padding-top: 7px;">
+			<small style="color: #FFFFFF;font-size: 15px;">马上预约</small>
+		</div>
+
+		<div style="text-align: center;margin-bottom: 12px;margin-top: 12px;">
+
+			<small style="font-size: 12px;color: #FFFFFF;">全国热线电话：400-000-6577</small><br>
+			<small style="font-size: 12px;margin-top: 10px;color: #FFFFFF;">鲁TCP备09077170号-3</small>
+
+		</div>
+		<script>
+			function sub(){
+				var name = $("#name").val();
+				var phone = $("#phone").val();
+				var time = $("#timeint").val();
+				var want = $("#showUserPicker").val();
+				var city = $("#showCityPicker3").val();
+				
+				var s = document.getElementsByName("pl");
+				
+				var remark = "";
+				
+				for(var i =0;i<s.length;i++){
+					if(s[i].checked)
+						remark += s[i].value+",";
+				}
+				
+				document.getElementById("remark").value = remark;
+				
+				if(name==""){
+					alert("请填写您的姓名");
+					return;
+				}
+
+				if(want==""){
+					alert("请选择您期望的量体师性别");
+					return;
+				}
+
+				if(city==""){
+					alert("请选择你所在的地区");
+					return;
+				}
+
+				if(!validatemobile(phone)){
+					return;
+				}
+
+				if(time==""){
+					alert("请选择预约时间");
+					return;
+				}
+				
+				if(Date.parse(time)<Date.parse(new Date())){
+						alert("请选择正确预约时间");
+						return;
+				}
+				
+				if(remark==""){
+					alert("请至少选择一个品类！");
+					return;
+				}
+				
+				document.getElementById("form").submit();
+			}
+
+
+			function validatemobile(mobile)
+		    {
+		       if(mobile.length==0)
+		       {
+		          alert('请输入手机号码！');
+
+		          return false;
+		       }
+		       if(mobile.length!=11)
+		       {
+		           alert('请输入有效的手机号码！');
+
+		           return false;
+		       }
+
+		       var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+		       if(!myreg.test(mobile))
+		       {
+		           alert('请输入有效的手机号码！');
+
+		           return false;
+		       }
+		       
+		       
+		       
+		       return true;
+		    }
+		</script>
+	</body>
+</html>
+		<script src="/ykly/js/mui.min.js"></script>
+		<script src="/ykly/js/mui.picker.min.js"></script>
+
+
+		<script src="/ykly/js/mui.picker.js"></script>
+		<script src="/ykly/js/mui.poppicker.js"></script>
+		<script src="/m/getcity3" type="text/javascript" charset="utf-8"></script>
+
+
+		<script>
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: '无要求',
+						text: '无要求'
+					},{
+						value: '男',
+						text: '男'
+					},{
+						value: '女',
+						text: '女'
+					}]);
+					var showUserPickerButton = doc.getElementById('showUserPicker');
+
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							document.getElementById("showUserPicker").value = items[0].value;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+
+					var cityPicker3 = new $.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					var showCityPickerButton = doc.getElementById('showCityPicker3');
+
+					showCityPickerButton.addEventListener('tap', function(event) {
+						cityPicker3.show(function(items) {
+							document.getElementById("showCityPicker3").value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+							document.getElementById("cityid").value = (items[2] || {}).value;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+
+				});
+			})(mui, document);
+		</script>
+
+
+		<script>
+			(function($) {
+				$.init();
+				var result = $('#result')[0];
+				var btns = $('#timeint');
+				btns.each(function(i, btn) {
+					btn.addEventListener('tap', function() {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');
+						/*
+						 * 首次显示时实例化组件
+						 * 示例为了简洁，将 options 放在了按钮的 dom 上
+						 * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+						 */
+						var picker = new $.DtPicker(options);
+						picker.show(function(rs) {
+							/*
+							 * rs.value 拼合后的 value
+							 * rs.text 拼合后的 text
+							 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+							 * rs.m 月，用法同年
+							 * rs.d 日，用法同年
+							 * rs.h 时，用法同年
+							 * rs.i 分（minutes 的第二个字母），用法同年
+							 */
+							document.getElementById("timeint").value = rs.text;
+							/*
+							 * 返回 false 可以阻止选择框的关闭
+							 * return false;
+							 */
+							/*
+							 * 释放组件资源，释放后将将不能再操作组件
+							 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+							 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+							 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+							 */
+							picker.dispose();
+						});
+					}, false);
+				});
+			})(mui);
+		</script>

@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>${page.title!}</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="createmakeorder1" method="post" class="form-horizontal" id="form">
+			<br>
+            <#if from=="ly">
+            <div class="control-group">
+              <label class="control-label">顾客姓名 :</label>
+              <div class="controls">
+                <p class="span6" style="margin-top: 5px;margin-left: 0px;">${user.name!}</p>
+              </div>
+            </div>
+
+            </#if>
+            <div class="control-group">
+              <label class="control-label">衣型 :</label>
+              <div class="controls">
+                <select type="text" class="span6" id="yx" name="yx">
+                  <#list yxlist as x>
+                    <option value="${x.id!}">${x.name!}</option>
+                  </#list>
+                </select>
+              </div>
+            </div>
+
+            <#if from=="ly">
+
+            <input name='userid' id="userid" value='${user.id!}' type='hidden'>
+            <input name='isvip' id="cheakVip" value='1' type='hidden'>
+
+
+            <#else>
+            <input name='userid' id="userid" value='0' type='hidden'>
+            <div class="control-group">
+              <label class="control-label">是否会员下单 :</label>
+
+              <div class="controls">
+                  <select class="span6" id="cheakVip" onchange="isVip();" name="isvip">
+                    <option value="1" selected>是</option>
+                    <option value="0">否</option>
+                  </select>
+              </div>
+
+            </div>
+            <div id="isVip">
+              <div class="control-group">
+                <label class="control-label">会员手机号 :</label>
+                <div class="controls">
+                  <input type="text" class="span6" id="phone">
+                  <button type="button" class="btn btn-primary" onclick="find();">查找</button>
+                  <font color="red" id="msg"></font>
+                </div>
+              </div>
+              <div id="innnn">
+
+
+              </div>
+
+
+            </div>
+
+            </#if>
+
+
+
+
+
+
+
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="sub();">下一步</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <script language="javascript">
+      	function sub(){
+
+          var v = document.getElementById("cheakVip").value;
+          var s = document.getElementById("userid").value;
+
+          if(v=="1" && s=="0"){
+            document.getElementById("msg").innerHTML="会员下单必须选择会员！";
+            return;
+          }
+          document.getElementById("form").submit();
+        }
+
+        isVip();
+
+        function isVip(){
+          var v = document.getElementById("cheakVip");
+          if(v.value=="0"){
+            document.getElementById("isVip").style.display="none";
+          }else{
+            document.getElementById("isVip").style.display="block";
+          }
+        }
+
+        function find(){
+          var phone = document.getElementById("phone").value;
+
+          $.post("/admin/finduser",{phone:phone},
+      			function(data){
+
+              if(data.code==404){
+                document.getElementById("userid").value = "0";
+                document.getElementById("innnn").innerHTML="";
+                document.getElementById("msg").innerHTML="用户不存在！";
+              }else{
+                document.getElementById("msg").innerHTML="";
+                var s = "<div class=\"control-group\">"+
+                          "<label class=\"control-label\">姓名 :</label>"+
+                          "<div class=\"controls\">"+
+                            "<p class=\"span6\" style=\"margin-top: 5px;margin-left: 0px;\">"+data.name+"</p>"+
+                           "</div>"+
+                         "</div>";
+                s+="<div class=\"control-group\">"+
+                          "<label class=\"control-label\">地址 :</label>"+
+                          "<div class=\"controls\">"+
+                            "<p class=\"span6\" style=\"margin-top: 5px;margin-left: 0px;\">"+data.address+"</p>"+
+                           "</div>"+
+                         "</div>";
+                s+="<div class=\"control-group\">"+
+                        "<label class=\"control-label\">电话 :</label>"+
+                        "<div class=\"controls\">"+
+                            "<p class=\"span6\" style=\"margin-top: 5px;margin-left: 0px;\">"+data.tel+"</p>"+
+                        "</div>"+
+                        "</div>";
+
+
+                document.getElementById("userid").value = data.id;
+                document.getElementById("innnn").innerHTML=s;
+
+              }
+
+
+      			},"json");
+
+
+
+        }
+
+
+
+
+
+
+
+      </script>
+
+
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>

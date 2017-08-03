@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>${K.WebSite_Admin_Name!}-${K.WebSite_Name!}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="/css/fullcalendar.css" />
+<link rel="stylesheet" href="/css/matrix-style.css" />
+<link rel="stylesheet" href="/css/matrix-media.css" />
+<link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/jquery.gritter.css" />
+</head>
+<body>
+
+<#include "inc/admin_header.html"/>
+
+<!-- 导航条 -->
+<!--main-container-part-->
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="/user" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+  </div>
+<!--End-breadcrumbs-->
+
+<#include "inc/cmsadd.html"/>
+
+
+    <div class="widget-box" style="width:98%;margin-left:1%;">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>添加分类</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="doaddmoddle" method="post" class="form-horizontal" id="form">
+            <div class="control-group">
+              <label class="control-label">分类名称 :</label>
+              <div class="controls">
+                <input type="text" class="span6" id="title" name="dao.title">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">简名称 :</label>
+              <div class="controls">
+                <input type="text" class="span6" name="dao.sorttitle">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">发布人:</label>
+              <div class="controls">
+                <input type="text" class="span6" value="${admin_user.username!}" readOnly="true">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">发布时间:</label>
+              <div class="controls">
+                <input type="text" class="span6" value="${time!}" readOnly="true">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">备注:</label>
+              <div class="controls">
+                <textarea class="span6" name="dao.content"></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn btn-success" onclick="sub();">保存</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <script language="javascript">
+      	function sub(){
+
+      		var title = $("#title").val();
+
+      		if(title.length==0){
+      			alert("分类名称不能为空");
+      			return;
+      		}
+
+      		document.getElementById("form").submit();
+
+      	}
+      </script>
+
+
+  </div>
+</div>
+
+<!--end-main-container-part-->
+
+<#include "inc/admin_footer.html"/>
+
+</body>
+</html>
